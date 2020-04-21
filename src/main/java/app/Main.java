@@ -1,17 +1,61 @@
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+package app;
 
+import com.google.gson.Gson;
+import spark.Spark;
+import spark.utils.IOUtils;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.ArrayList;
 
 import static spark.Spark.*;
 
 public class Main {
 
+    public static void main(String[] args) throws URISyntaxException, SQLException {
+
+        staticFiles.location("/public");
+
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> renderContent("/public/html/index.html"));
+
+        get("/products", (req, res) -> getProductsJsonString());
+
+        get("/hello", (req, res) -> "Uszanowanko");
+
+    }
+
+    private static String renderContent(String htmlFile) {
+        String htmlString = null;
+        try {
+            htmlString = IOUtils.toString(Spark.class.getResourceAsStream(htmlFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return htmlString;
+    }
+
+    private static String getProductsJsonString(){
+        ArrayList<Produkt> allProducts = getAllProducts();
+        Gson gson = new Gson();
+        return gson.toJson(allProducts);
+    }
+
+    private static ArrayList<Produkt> getAllProducts(){
+        // This should return all products from database in a form of ArrayList but it's currently hardcoded instead.
+        ArrayList<Produkt> allProducts = new ArrayList<>();
+
+        allProducts.add(new Produkt(0, "Ibuprom", 4.99, "Leki"));
+        allProducts.add(new Produkt(1, "Aspiryna", 29.99, "Leki"));
+        allProducts.add(new Produkt(2, "Jabłko", 0.2, "Owoce"));
+
+        return allProducts;
+    }
+
+/*
     private static String getDataFromDB() throws URISyntaxException, SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
@@ -25,6 +69,9 @@ public class Main {
             System.out.println(line);
         }
         return line;
+    }
+*/
+
 /*
         Configuration configuration = new Configuration();
         configuration.configure();
@@ -33,12 +80,11 @@ public class Main {
         SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(new Produkt(10,"Banan", 0.6,"Owoce"));
+        session.save(new app.Produkt(10,"Banan", 0.6,"Owoce"));
         session.getTransaction().commit();
 */
 
-    }
-
+/*
     private static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -47,20 +93,7 @@ public class Main {
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
         return DriverManager.getConnection(dbUrl, username, password);
     }
-
-    public static void main(String[] args) throws URISyntaxException, SQLException {
-
-        port(getHerokuAssignedPort());
-
-        get("/", (req, res) -> getDataFromDB());
-
-        get("/hello", (req, res) -> "Siemanko");
-        //get("/", (req, res) -> "pierwsza strona aby odblokowac druga dodaj /hello");
-        //System.out.println(getNameFromDB());
-
-
-
-    }
+*/
 
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();

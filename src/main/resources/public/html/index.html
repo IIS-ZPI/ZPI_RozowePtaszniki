@@ -3,7 +3,6 @@
 <head>
     <title>Display all products from json data in a table.</title>
 
-
     <script src="../js/tableLogic.js"></script>
 
     <!-- Font Awesome -->
@@ -61,29 +60,12 @@
 
 <script>
     $(document).ready(function() {
-        // Create a new JSONTable Object.
-        const testData = [
-            {
-                "Book ID": "1",
-                "Book Name": "Computer Architecture",
-                "Category": "Computers",
-                "Price": "125.60"
-            },
-            {
-                "Book ID": "2",
-                "Book Name": "Asp.Net 4 Blue Book",
-                "Category": "Programming",
-                "Price": "56.00"
-            },
-            {
-                "Book ID": "3",
-                "Book Name": "Popular Science",
-                "Category": "Science",
-                "Price": "210.40"
-            }
-        ];
 
-        CreateTableFromJSON(testData);
+        // Get Json data
+        $.getJSON("/products", function(data) {
+            CreateTableFromJSON(data);
+        });
+
     });
 
 </script>
