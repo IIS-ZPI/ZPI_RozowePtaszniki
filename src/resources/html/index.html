@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display all products from json data in a table.</title>
+
+
+    <script src="../js/tableLogic.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">ALL PRODUCTS</h3>
+    <div class="card-body">
+        <div id="table" class="table-editable">
+
+            <!-- add row button -->
+            <span class="table-add float-right mb-3 mr-2">
+                <a href="#!" class="text-success">
+                    <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
+                </a>
+            </span>
+
+            <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead id="columnsBody">
+                    <!-- COLUMNS WILL BE GENERATED HERE -->
+                </thead>
+
+                <tbody id="tableBody">
+                    <!-- ROWS WILL BE GENERATED HERE -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<!-- Editable table -->
+
+</body>
+
+
+<script>
+    $(document).ready(function() {
+        // Create a new JSONTable Object.
+        const testData = [
+            {
+                "Book ID": "1",
+                "Book Name": "Computer Architecture",
+                "Category": "Computers",
+                "Price": "125.60"
+            },
+            {
+                "Book ID": "2",
+                "Book Name": "Asp.Net 4 Blue Book",
+                "Category": "Programming",
+                "Price": "56.00"
+            },
+            {
+                "Book ID": "3",
+                "Book Name": "Popular Science",
+                "Category": "Science",
+                "Price": "210.40"
+            }
+        ];
+
+        CreateTableFromJSON(testData);
+    });
+
+</script>
+
+</html>
