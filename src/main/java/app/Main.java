@@ -1,11 +1,11 @@
 package app;
 
+import app.util.Paths;
 import com.google.gson.Gson;
 import spark.Spark;
 import spark.utils.IOUtils;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class Main {
 
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> renderContent("/public/html/index.html"));
+        get(Paths.Web.START_PAGE, (req, res) -> renderContent(Paths.Template.INDEX));
 
-        get("/products", (req, res) -> getProductsJsonString());
+        get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
-        get("/hello", (req, res) -> "Uszanowanko");
+        get(Paths.Web.HELLO, (req, res) -> "Uszanowanko");
 
     }
 
@@ -39,18 +39,18 @@ public class Main {
     }
 
     private static String getProductsJsonString(){
-        ArrayList<Produkt> allProducts = getAllProducts();
+        ArrayList<Product> allProducts = getAllProducts();
         Gson gson = new Gson();
         return gson.toJson(allProducts);
     }
 
-    private static ArrayList<Produkt> getAllProducts(){
+    private static ArrayList<Product> getAllProducts(){
         // This should return all products from database in a form of ArrayList but it's currently hardcoded instead.
-        ArrayList<Produkt> allProducts = new ArrayList<>();
+        ArrayList<Product> allProducts = new ArrayList<>();
 
-        allProducts.add(new Produkt(0, "Ibuprom", 4.99, "Leki"));
-        allProducts.add(new Produkt(1, "Aspiryna", 29.99, "Leki"));
-        allProducts.add(new Produkt(2, "Jabłko", 0.2, "Owoce"));
+        allProducts.add(new Product(0, "Ibuprom", 4.99, "Leki"));
+        allProducts.add(new Product(1, "Aspiryna", 29.99, "Leki"));
+        allProducts.add(new Product(2, "Jabłko", 0.2, "Owoce"));
 
         return allProducts;
     }
