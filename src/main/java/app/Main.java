@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException, SQLException {
         ProfitCalculator profitCalculator = new ProfitCalculator();
+        ArrayList<ProfitData> profits = profitCalculator.Calculate("Apple 0.25 groceries 1");
 
         staticFiles.location("/public");
 
@@ -25,7 +26,7 @@ public class Main {
 
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
-        get(Paths.Web.HELLO, (req, res) -> profitCalculator.Calculate("Apple 0.25 groceries 1"));
+        get(Paths.Web.HELLO, (req, res) -> getProfitDataJsonString(profits));
 
     }
 
@@ -37,6 +38,11 @@ public class Main {
             e.printStackTrace();
         }
         return htmlString;
+    }
+
+    private static String getProfitDataJsonString(ArrayList<ProfitData> profits){
+        Gson gson = new Gson();
+        return gson.toJson(profits);
     }
 
     private static String getProductsJsonString(){

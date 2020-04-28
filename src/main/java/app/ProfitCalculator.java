@@ -11,7 +11,7 @@ public class ProfitCalculator {
         this.taxesInStates.add(new TaxesInState("California",7.25,10.5,"0","7.25","0","7.25","7.25","0"));
     }
 
-    public String Calculate(String request) throws IllegalArgumentException {
+    public ArrayList<ProfitData> Calculate(String request) throws IllegalArgumentException {
         if(request == null )
             throw new IllegalArgumentException();
 
@@ -29,8 +29,7 @@ public class ProfitCalculator {
             throw new IllegalArgumentException();
         }
 
-        StringBuilder result = new StringBuilder();
-        result.append(values[0]).append(" ");
+        ArrayList<ProfitData> result = new ArrayList<>();
         for (TaxesInState val : this.taxesInStates) {
             double baseTax = 0;
             try {
@@ -41,10 +40,10 @@ public class ProfitCalculator {
             }
 
             double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
-            result.append(val.getName()).append(":  final Price Without Taxes: ").append(finalPriceWithoutTaxes).append(" profit: ").append(finalPriceWithoutTaxes - startingPrice).append("\n");
+            result.add(new ProfitData(val.getName(),finalPriceWithoutTaxes,values[2],startingPrice - finalPriceWithoutTaxes));
         }
 
-        return result.toString();
+        return result;
     }
 
     private double parseValue(String val, double baseTax, double finalPrice) {
