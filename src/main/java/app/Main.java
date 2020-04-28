@@ -15,6 +15,7 @@ import static spark.Spark.*;
 public class Main {
 
     public static void main(String[] args) throws URISyntaxException, SQLException {
+        ProfitCalculator profitCalculator = new ProfitCalculator();
 
         staticFiles.location("/public");
 
@@ -24,7 +25,7 @@ public class Main {
 
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
-        get(Paths.Web.HELLO, (req, res) -> "Uszanowanko");
+        get(Paths.Web.HELLO, (req, res) -> profitCalculator.Calculate("Apple 0.25 groceries 1"));
 
     }
 

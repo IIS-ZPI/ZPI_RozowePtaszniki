@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Produkt
+public class Product
 {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
@@ -20,7 +20,7 @@ public class Produkt
     @Column(name="kategoria", nullable = false)
     private String kategoria;
 
-    Produkt(int id, String nazwa, double cena, String kategoria)
+    Product(int id, String nazwa, double cena, String kategoria)
     {
         this.id = id;
         this.nazwa = nazwa;
