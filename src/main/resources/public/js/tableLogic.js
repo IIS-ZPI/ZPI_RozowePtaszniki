@@ -81,9 +81,10 @@ $(document).ready(function () {
 
     function CreateRemoveButton() {
         const cell = document.createElement('td');
+        cell.classList.add("table-remove");
         const button = cell.appendChild(document.createElement('button'));
         button.setAttribute("type", "button");
-        button.classList.add("btn", "btn-rounded", "btn-danger", "active", "btn-sm");
+        button.classList.add("btn", "btn-rounded", "btn-danger", "btn-sm");
         button.innerText = "Remove";
         return cell;
     }
@@ -96,7 +97,7 @@ $(document).ready(function () {
         button.setAttribute("type", "button");
         button.setAttribute("data-toggle", "modal");
         button.setAttribute("data-target", "#calculateModal");
-        button.classList.add("btn", "btn-default", "btn-sm", "my-0");
+        button.classList.add("btn", "btn-rounded", "btn-default", "btn-sm");
         button.innerText = "Calculate price";
         return cell;
     }
