@@ -26,7 +26,7 @@ public class Main {
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
         get(Paths.Web.CALCULATE, (req, res) -> {
-            String dumbString = req.params(":product") + " " + req.params(":cost") + " " + req.params(":category") + " " + req.params(":final_cost");
+            String dumbString = req.params(":product") + " " + req.params(":cost") + " " + req.params(":category") + " " + req.params(":final_cost"); // this needs to be changed
             ArrayList<ProfitData> profits = profitCalculator.Calculate(dumbString);
             return getProfitDataJsonString(profits);
         });
@@ -58,9 +58,9 @@ public class Main {
         // This should return all products from database in a form of ArrayList but it's currently hardcoded instead.
         ArrayList<Product> allProducts = new ArrayList<>();
 
-        allProducts.add(new Product(0, "Ibuprom", 4.99, "Leki"));
-        allProducts.add(new Product(1, "Aspiryna", 29.99, "Leki"));
-        allProducts.add(new Product(2, "Jabłko", 0.2, "Owoce"));
+        allProducts.add(new Product(0, "Ibuprom", 4.99, "prescriptionDrug"));
+        allProducts.add(new Product(1, "Aspiryna", 29.99, "nonPrescriptionDrug"));
+        allProducts.add(new Product(2, "Jabłko", 0.2, "groceries"));
 
         return allProducts;
     }
