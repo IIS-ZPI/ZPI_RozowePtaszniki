@@ -40,7 +40,7 @@ public class ProfitCalculator {
             }
 
             double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
-            result.add(new ProfitData(val.getName(),finalPriceWithoutTaxes,values[2],startingPrice - finalPriceWithoutTaxes));
+            result.add(new ProfitData(val.getName(),finalPriceWithoutTaxes,values[2],startingPrice - finalPriceWithoutTaxes)); //change to finalPriceWithoutTaxes-startingPrice @Mateusz
         }
 
         return result;
