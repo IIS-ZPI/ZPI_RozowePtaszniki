@@ -15,10 +15,10 @@ $(document).ready(function () {
         const $row = $(this).parents('tr');
         current_product_id = $row.index();
         const price = document.getElementById("cena" +  current_product_id).innerText;
-        document.getElementById('price_id').setAttribute("placeholder", price + "$");
+        document.getElementById('price-id').setAttribute("placeholder", price + "$");
     });
 
-    $("#calculate_button_id").on('click', function () {
+    $("#calculate-button-id").on('click', function () {
         GetProductPrices();
     });
 
@@ -39,13 +39,15 @@ $(document).ready(function () {
             columnName.appendChild(document.createTextNode(key));
             columns.appendChild(columnName);
         }
-        const removeButtonColumn = document.createElement('th');
-        removeButtonColumn.appendChild(document.createTextNode("Remove"));
-        columns.appendChild(removeButtonColumn);
-        columnsBody.appendChild(columns);
+
         const calculateButtonColumn = document.createElement('th');
-        calculateButtonColumn.appendChild(document.createTextNode("Calculate"));
+        calculateButtonColumn.appendChild(document.createTextNode("Oblicz"));
         columns.appendChild(calculateButtonColumn);
+        columnsBody.appendChild(columns);
+
+        const removeButtonColumn = document.createElement('th');
+        removeButtonColumn.appendChild(document.createTextNode("Usuń"));
+        columns.appendChild(removeButtonColumn);
         columnsBody.appendChild(columns);
 
 
@@ -64,13 +66,14 @@ $(document).ready(function () {
                 record.appendChild(cell);
             }
 
-            // ADD REMOVE BUTTON
-            const removeButtonCell = CreateRemoveButton();
-            record.appendChild(removeButtonCell);
 
             // ADD CALCULATE MARGIN BUTTON
             const calculateMarginButtonCell = CreateCalculateButton();
             record.appendChild(calculateMarginButtonCell);
+
+            // ADD REMOVE BUTTON
+            const removeButtonCell = CreateRemoveButton();
+            record.appendChild(removeButtonCell);
 
             // ADD RECORD TO THE TABLE
             tableBody.appendChild(record);
@@ -85,7 +88,7 @@ $(document).ready(function () {
         const button = cell.appendChild(document.createElement('button'));
         button.setAttribute("type", "button");
         button.classList.add("btn", "btn-rounded", "btn-danger", "btn-sm");
-        button.innerText = "Remove";
+        button.innerText = "Usuń";
         return cell;
     }
 
@@ -96,9 +99,9 @@ $(document).ready(function () {
         const button = cell.appendChild(document.createElement('button'));
         button.setAttribute("type", "button");
         button.setAttribute("data-toggle", "modal");
-        button.setAttribute("data-target", "#calculateModal");
+        button.setAttribute("data-target", "#calculate-modal");
         button.classList.add("btn", "btn-rounded", "btn-default", "btn-sm");
-        button.innerText = "Calculate price";
+        button.innerText = "Policz cene";
         return cell;
     }
 
@@ -108,16 +111,16 @@ $(document).ready(function () {
         const product = document.getElementById("nazwa" + id).innerText;
         const price = document.getElementById("cena" + id).innerText;
         const category = document.getElementById("kategoria" + id).innerText;
-        const final_price = document.getElementById("final_price_id").value;
+        const final_price = document.getElementById("final-price-id").value;
 
         $.getJSON("/calculate/" + product + "/" + price + "/" + category + "/" + final_price, function(data) {
-            var select = document.getElementById("state_id");
+            var select = document.getElementById("state-id");
             const state = select.options[select.selectedIndex].innerText;
             console.log();
             for (const row in data){
                 if(data[row]["nameOfState"] === state){
-                    document.getElementById("no_tax_price_id").setAttribute("placeholder", data[row]["priceWithoutTaxes"] + "$");
-                    document.getElementById("profit_margin_id").setAttribute("placeholder", data[row]["profit"] + "$");
+                    document.getElementById("no-tax-price-id").setAttribute("placeholder", data[row]["priceWithoutTaxes"] + "$");
+                    document.getElementById("profit-margin-id").setAttribute("placeholder", data[row]["profit"] + "$");
                 }
             }
         });
