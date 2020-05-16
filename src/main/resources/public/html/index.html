@@ -23,7 +23,9 @@
 <div class="card">
     <h3 class="card-header text-center font-weight-bold text-uppercase py-4">ALL PRODUCTS</h3>
     <div class="card-body">
-        <div id="table" class="table-editable">
+
+
+        <div id="products-table" class="table-editable">
 
             <!-- add row button -->
             <span class="table-add float-right mb-3 mr-2">
@@ -66,13 +68,13 @@
                 <form>
 
                     <div class="form-group">
-                        <label for="price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
-                        <input type="number" class="form-control" id="price-id" placeholder="0%" readonly>
+                        <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
+                        <input type="number" class="form-control" id="base-price-id" placeholder="0%" readonly>
                     </div>
 
                     <div class="form-group"> <!-- State Button -->
-                        <label for="state-id" class="control-label">Stan (USA)</label>
-                        <select class="form-control" id="state-id" title="Choose state...">
+                        <label for="usa-state-id" class="control-label">Stan (USA)</label>
+                        <select class="form-control" id="usa-state-id" title="Choose state...">
                             <option value="AL">Alabama</option>
                            <!-- <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -143,8 +145,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="profit-margin-id" class="control-label">Marża sprzedaży (zysk)</label>
-                        <input type="number" class="form-control" id="profit-margin-id" placeholder="-" readonly>
+                        <label for="profit-id" class="control-label">Marża sprzedaży (zysk)</label>
+                        <input type="number" class="form-control" id="profit-id" placeholder="-" readonly>
                     </div>
 
                 </form>

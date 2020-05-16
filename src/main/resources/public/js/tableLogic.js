@@ -1,130 +1,122 @@
 $(document).ready(function () {
 
-    var current_product_id = null;
+    // THIS SHOULD BE THE SAME AS IN JSON RETURNED BY 'localhost:4567/products' !!!!!!!!
+    const productID = "id";
+    const productName = "nazwa";
+    const productCategory = "kategoria";
+    const productBasePrice = "cena podstawowa";
 
-    $('#stateSelect').change(function (e) {
-        alert($(e.target).val());
+    // THIS SHOULD BE THE SAME AS IN JSON RETURNED BY 'localhost:4567/calculate' !!!!!!!!
+    const stateUSA = "stan USA";
+    const noTaxPrice = "cena bez podatku";
+    const profit = "zysk";
+
+    // THESE NAMES ARE INDEPENDENT FROM SERVER
+    const productLogisticCosts = "koszty logistyczne";
+    const productFinalPrice = "pożądana cena";
+    const productCalculatePrice = "pokaż ceny";
+    const productRemove = "usuń";
+
+    // THIS STORES DATA
+    let productsData;
+    let productsLastCalculatedPricesData;
+
+
+    // at the start create table from 'localhost:4567/products' data
+    $.getJSON("/products", function(data) {
+        productsData = data;
+        CreateTableFromJSON(data);
     });
 
-    $('#table').on('click', '.table-remove', function () {
-        // send remove request to database
+
+    $('#products-table').on('click', '.table-calculate', function () {
+        let id = $(this).parents("tr")[0].id;
+        console.log(id);
+        calculatePrice(id);
+        updateModalContent(productsLastCalculatedPricesData[id]);
+    });
+
+
+    $('#products-table').on('click', '.table-remove', function () {
+        // here should be asking for confirmation and sending remove request to the database
         $(this).parents('tr').detach();
     });
 
-    $('#table').on('click', '.table-calculate', function () {
-        const $row = $(this).parents('tr');
-        current_product_id = $row.index();
-        const price = document.getElementById("cena" +  current_product_id).innerText;
-        document.getElementById('price-id').setAttribute("placeholder", price + "$");
-    });
 
-    $("#calculate-button-id").on('click', function () {
-        GetProductPrices();
-    });
-
-    // Get Json data
-    $.getJSON("/products", function(data) {
-        CreateTableFromJSON(data);
+    $('#usa-state-id').change(function (e) {
+        // TODO
+        alert($(e.target).val());
     });
 
 
     function CreateTableFromJSON(data) {
 
-        // CREATE COLUMNS FROM FIRST RECORD KEYS
-        const columnsBody = document.getElementById('columnsBody');
-        const columns = document.createElement('tr');
-        for (const key in data[0]) {
-            const columnName = document.createElement('th');
-            columnName.classList.add("text-center");
-            columnName.appendChild(document.createTextNode(key));
-            columns.appendChild(columnName);
-        }
-
-        const calculateButtonColumn = document.createElement('th');
-        calculateButtonColumn.appendChild(document.createTextNode("Oblicz"));
-        columns.appendChild(calculateButtonColumn);
-        columnsBody.appendChild(columns);
-
-        const removeButtonColumn = document.createElement('th');
-        removeButtonColumn.appendChild(document.createTextNode("Usuń"));
-        columns.appendChild(removeButtonColumn);
-        columnsBody.appendChild(columns);
-
+        // CREATE COLUMNS
+        let columnsBody = document.getElementById('columnsBody');
+        let htmlString = `<tr>`;
+        htmlString += `<th class="text-center">${productID}</th>`;
+        htmlString += `<th class="text-center">${productName}</th>`;
+        htmlString += `<th class="text-center">${productCategory}</th>`;
+        htmlString += `<th class="text-center">${productBasePrice}</th>`;
+        htmlString += `<th class="text-center">${productLogisticCosts}</th>`;
+        htmlString += `<th class="text-center">${productFinalPrice}</th>`;
+        htmlString += `<th class="text-center">${productCalculatePrice}</th>`;
+        htmlString += `<th class="text-center">${productRemove}</th>`;
+        htmlString += `</tr>`;
+        columnsBody.innerHTML = htmlString;
 
         // ADD JSON DATA TO THE TABLE AS ROWS.
-        const tableBody = document.getElementById('tableBody');
+        let tableBody = document.getElementById('tableBody');
+        htmlString = "";
         for (let i = 0; i < data.length; i++) {
-
-            // CREATE RECORD CONTAINER
-            const record = document.createElement('tr');
-
-            // ADD CELLS
-            for (const key in data[i]) {
-                const cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(data[i][key]));
-                cell.setAttribute("id", key + i);
-                record.appendChild(cell);
-            }
-
-
-            // ADD CALCULATE MARGIN BUTTON
-            const calculateMarginButtonCell = CreateCalculateButton();
-            record.appendChild(calculateMarginButtonCell);
-
-            // ADD REMOVE BUTTON
-            const removeButtonCell = CreateRemoveButton();
-            record.appendChild(removeButtonCell);
-
-            // ADD RECORD TO THE TABLE
-            tableBody.appendChild(record);
+            let id = data[i][productID];
+            htmlString += `<tr id="${id}">`;
+            htmlString += `<td id="${productID + id}">${id}</td>`;
+            htmlString += `<td id="${productName + id}">${data[i][productName]}</td>`;
+            htmlString += `<td id="${productCategory + id}">${data[i][productCategory]}</td>`;
+            htmlString += `<td id="${productBasePrice + id}">${data[i][productBasePrice]}</td>`;
+            htmlString += `<td id="${productLogisticCosts + id}">0</td>`;
+            htmlString += `<td id="${productFinalPrice + id}">0</td>`;
+            htmlString += createCalculateButton(id);
+            htmlString += createRemoveButton(id);
+            htmlString += `</tr>`;
         }
+        tableBody.innerHTML = htmlString;
+    }
 
+    function createRemoveButton(id) {
+        let htmlString = `<td id="${productRemove+id}" class="table-remove"><button type="button" class="btn btn-rounded btn-danger btn-sm">${productRemove}</button></td>`;
+        return htmlString;
+    }
+
+    function createCalculateButton(id) {
+        let htmlString = `<td id="${productCalculatePrice+id}" class="table-calculate">`;
+        htmlString += `<button type="button" class="btn btn-rounded btn-default btn-sm" data-toggle="modal" data-target="#calculate-modal">`;
+        htmlString += `${productCalculatePrice}</button></td>`;
+        return htmlString;
     }
 
 
-    function CreateRemoveButton() {
-        const cell = document.createElement('td');
-        cell.classList.add("table-remove");
-        const button = cell.appendChild(document.createElement('button'));
-        button.setAttribute("type", "button");
-        button.classList.add("btn", "btn-rounded", "btn-danger", "btn-sm");
-        button.innerText = "Usuń";
-        return cell;
-    }
-
-
-    function CreateCalculateButton() {
-        const cell = document.createElement('td');
-        cell.classList.add("table-calculate");
-        const button = cell.appendChild(document.createElement('button'));
-        button.setAttribute("type", "button");
-        button.setAttribute("data-toggle", "modal");
-        button.setAttribute("data-target", "#calculate-modal");
-        button.classList.add("btn", "btn-rounded", "btn-default", "btn-sm");
-        button.innerText = "Policz cene";
-        return cell;
-    }
-
-
-    function GetProductPrices() {
-        var id = current_product_id;
-        const product = document.getElementById("nazwa" + id).innerText;
-        const price = document.getElementById("cena" + id).innerText;
-        const category = document.getElementById("kategoria" + id).innerText;
-        const final_price = document.getElementById("final-price-id").value;
-
-        $.getJSON("/calculate/" + product + "/" + price + "/" + category + "/" + final_price, function(data) {
-            var select = document.getElementById("state-id");
-            const state = select.options[select.selectedIndex].innerText;
-            console.log();
-            for (const row in data){
-                if(data[row]["nameOfState"] === state){
-                    document.getElementById("no-tax-price-id").setAttribute("placeholder", data[row]["priceWithoutTaxes"] + "$");
-                    document.getElementById("profit-margin-id").setAttribute("placeholder", data[row]["profit"] + "$");
-                }
-            }
+    function calculatePrice(id){
+        let finalPriceValue = document.getElementById("product-final-price" + id).value;
+        $.getJSON("/calculate/" + id + "/" + finalPriceValue, function(data) {
+            productsLastCalculatedPricesData[id] = data;
         });
+    }
 
+
+    function updateModalContent(data) {
+
+        let basePriceModalCell = document.getElementById("base-price-id");
+        let finalPriceModalCell = document.getElementById("final-price-id");
+        let stateModalCell = document.getElementById("usa-state-id");
+        let logisticsCostModalCell = document.getElementById("logistic-costs-id");
+        let noTaxPriceModalCell = document.getElementById("no-tax-price-id");
+        let profitModalCell = document.getElementById("profit-id");
+
+        let stateName = stateModalCell.options[stateModalCell.selectedIndex].innerText;
+        noTaxPriceModalCell.setAttribute("placeholder", data[noTaxPrice]);
+        profitModalCell.setAttribute("placeholder", data[stateName][profit]);
     }
 
 });
