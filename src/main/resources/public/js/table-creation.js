@@ -5,10 +5,10 @@ import {
     productID,
     productLogisticCosts,
     productName, productRemove
-} from "./constants.js";
+} from "./config.js";
 
 
-export function CreateTableFromJSON(data) {
+export function createTableFromJSON(data) {
 
     // CREATE COLUMNS
     let columnsBody = document.getElementById('columnsBody');
@@ -34,8 +34,8 @@ export function CreateTableFromJSON(data) {
         htmlString += `<td id="${productName + id}">${data[i][productName]}</td>`;
         htmlString += `<td id="${productCategory + id}">${data[i][productCategory]}</td>`;
         htmlString += `<td id="${productBasePrice + id}">${data[i][productBasePrice]}</td>`;
-        htmlString += `<td id="${productLogisticCosts + id}">0</td>`;
-        htmlString += `<td id="${productFinalPrice + id}">0</td>`;
+        htmlString += `<td id="${productLogisticCosts + id}" contenteditable="true">0</td>`;
+        htmlString += `<td id="${productFinalPrice + id}" contenteditable="true">0</td>`;
         htmlString += createCalculateButton(id);
         htmlString += createRemoveButton(id);
         htmlString += `</tr>`;

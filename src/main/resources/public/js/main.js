@@ -1,5 +1,5 @@
-import {CreateTableFromJSON} from "./table-creation.js";
-import {noTaxPrice, profit} from "./constants.js";
+import {createTableFromJSON} from "./table-creation.js";
+import {noTaxPrice, profit, productFinalPrice} from "./config.js";
 
 
 $(document).ready(function () {
@@ -11,18 +11,17 @@ function main(){
 
     // THIS STORES DATA
     let productsData;
-    let productsLastCalculatedPricesData;
+    let productsLastCalculatedPricesData = {};
 
     // at the start create table from 'localhost:4567/products' data
     $.getJSON("/products", function(data) {
         productsData = data;
-        CreateTableFromJSON(data);
+        createTableFromJSON(data);
     });
 
 
     $('#products-table').on('click', '.table-calculate', function () {
         let id = $(this).parents("tr")[0].id;
-        console.log(id);
         calculatePrice(id);
         updateModalContent(productsLastCalculatedPricesData[id]);
     });
@@ -42,9 +41,10 @@ function main(){
 
 
     function calculatePrice(id){
-        let finalPriceValue = document.getElementById("product-final-price" + id).value;
+        let finalPriceValue = document.getElementById(productFinalPrice+id).value;
         $.getJSON("/calculate/" + id + "/" + finalPriceValue, function(data) {
             productsLastCalculatedPricesData[id] = data;
+            console.log("asdasd", productsLastCalculatedPricesData[id]);
         });
     }
 
