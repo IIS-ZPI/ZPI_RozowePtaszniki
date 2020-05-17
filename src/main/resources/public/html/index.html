@@ -58,7 +58,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Here you can calculate product price</h5>
+                <h5 class="modal-title">Here you can see different prices</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                         <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
-                        <input type="number" class="form-control" id="base-price-id" placeholder="0%" readonly>
+                        <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>
                     </div>
 
                     <div class="form-group"> <!-- State Button -->
@@ -131,12 +131,12 @@
 
                     <div class="form-group">
                         <label for="final-price-id" class="control-label">Preferowana cena końcowa</label>
-                        <input type="number" class="form-control" id="final-price-id" placeholder="Wybierz cenę..." required>
+                        <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>
                     </div>
 
                     <div class="form-group">
                         <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>
-                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" required>
+                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>
                     </div>
 
                     <div class="form-group">
@@ -153,7 +153,6 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="calculate-button-id">Calculate</button>
             </div>
         </div>
     </div>

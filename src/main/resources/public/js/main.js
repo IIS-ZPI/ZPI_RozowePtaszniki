@@ -1,5 +1,5 @@
 import {createTableFromJSON} from "./table-creation.js";
-import {noTaxPrice, profit, productFinalPrice} from "./config.js";
+import {noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts} from "./config.js";
 
 
 $(document).ready(function () {
@@ -7,11 +7,12 @@ $(document).ready(function () {
 });
 
 
-function main(){
+// THIS STORES DATA
+let productsData;
+let productsLastCalculatedPricesData = {};
 
-    // THIS STORES DATA
-    let productsData;
-    let productsLastCalculatedPricesData = {};
+
+function main(){
 
     // at the start create table from 'localhost:4567/products' data
     $.getJSON("/products", function(data) {
@@ -38,29 +39,34 @@ function main(){
         // TODO
         alert($(e.target).val());
     });
+}
 
 
-    function calculatePrice(id){
-        let finalPriceValue = document.getElementById(productFinalPrice+id).value;
-        $.getJSON("/calculate/" + id + "/" + finalPriceValue, function(data) {
-            productsLastCalculatedPricesData[id] = data;
-            console.log("asdasd", productsLastCalculatedPricesData[id]);
-        });
-    }
+function calculatePrice(id){
+    let finalPriceValue = document.getElementById(productFinalPrice+id).value;
+    $.getJSON("/calculate/" + id + "/" + finalPriceValue, function(data) {
+        productsLastCalculatedPricesData[id] = data;
+        console.log("asdasd", productsLastCalculatedPricesData[id]);
+    });
+}
 
-    function updateModalContent(data) {
+function updateModalContent(data) {
 
-        let basePriceModalCell = document.getElementById("base-price-id");
-        let finalPriceModalCell = document.getElementById("final-price-id");
-        let stateModalCell = document.getElementById("usa-state-id");
-        let logisticsCostModalCell = document.getElementById("logistic-costs-id");
-        let noTaxPriceModalCell = document.getElementById("no-tax-price-id");
-        let profitModalCell = document.getElementById("profit-id");
+    let basePriceModalCell = document.getElementById("base-price-id");
+    let finalPriceModalCell = document.getElementById("final-price-id");
+    let stateModalCell = document.getElementById("usa-state-id");
+    let logisticCostsModalCell = document.getElementById("logistic-costs-id");
+    let noTaxPriceModalCell = document.getElementById("no-tax-price-id");
+    let profitModalCell = document.getElementById("profit-id");
 
-        let stateName = stateModalCell.options[stateModalCell.selectedIndex].innerText;
-        noTaxPriceModalCell.setAttribute("placeholder", data[noTaxPrice]);
-        profitModalCell.setAttribute("placeholder", data[stateName][profit]);
-    }
+    let stateName = stateModalCell.options[stateModalCell.selectedIndex].innerText;
+    basePriceModalCell.setAttribute("placeholder", data[productBasePrice]);
+    finalPriceModalCell.setAttribute("placeholder", data[productFinalPrice]);
+    noTaxPriceModalCell.setAttribute("placeholder", data[noTaxPrice]);
+    profitModalCell.setAttribute("placeholder", data[stateName][profit]);
+
+    // TODO
+    //logisticCostsModalCell.setAttribute("placeholder", data[productLogisticCosts]);
 }
 
 
