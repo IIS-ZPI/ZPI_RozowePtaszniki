@@ -67,11 +67,6 @@
 
                 <form>
 
-                    <div class="form-group">
-                        <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
-                        <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>
-                    </div>
-
                     <div class="form-group"> <!-- State Button -->
                         <label for="usa-state-id" class="control-label">Stan (USA)</label>
                         <select class="form-control" id="usa-state-id" title="Choose state...">
@@ -130,14 +125,19 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
+                        <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>
+                    </div>
+
+                    <div class="form-group">
                         <label for="final-price-id" class="control-label">Preferowana cena końcowa</label>
                         <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>
                     </div>
 
-                    <div class="form-group">
-                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>
-                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>-->
+<!--                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>-->
+<!--                    </div>-->
 
                     <div class="form-group">
                         <label for="no-tax-price-id" class="control-label">Cena bez podatku</label>

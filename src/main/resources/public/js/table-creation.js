@@ -17,7 +17,7 @@ export function createTableFromJSON(data) {
     htmlString += `<th class="text-center">${productName}</th>`;
     htmlString += `<th class="text-center">${productCategory}</th>`;
     htmlString += `<th class="text-center">${productBasePrice}</th>`;
-    htmlString += `<th class="text-center">${productLogisticCosts}</th>`;
+    //htmlString += `<th class="text-center">${productLogisticCosts}</th>`;
     htmlString += `<th class="text-center">${productFinalPrice}</th>`;
     htmlString += `<th class="text-center">${productCalculatePrice}</th>`;
     htmlString += `<th class="text-center">${productRemove}</th>`;
@@ -34,8 +34,8 @@ export function createTableFromJSON(data) {
         htmlString += `<td id="${productName + id}">${data[i][productName]}</td>`;
         htmlString += `<td id="${productCategory + id}">${data[i][productCategory]}</td>`;
         htmlString += `<td id="${productBasePrice + id}">${data[i][productBasePrice]}</td>`;
-        htmlString += `<td id="${productLogisticCosts + id}" contenteditable="true">0</td>`;
-        htmlString += `<td id="${productFinalPrice + id}" contenteditable="true">0</td>`;
+        //htmlString += `<td id="${productLogisticCosts + id}" contenteditable="true">0</td>`;
+        htmlString += `<td id="${productFinalPrice + id}" contenteditable="true">$0</td>`;
         htmlString += createCalculateButton(id);
         htmlString += createRemoveButton(id);
         htmlString += `</tr>`;
