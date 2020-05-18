@@ -20,6 +20,8 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+    options: '-X'
+
 
 - task: PowerShell@2
   inputs:
