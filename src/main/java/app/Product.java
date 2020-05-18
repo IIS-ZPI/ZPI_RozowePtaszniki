@@ -14,11 +14,11 @@ public class Product
     @Column(name="nazwa", nullable = false)
     private String nazwa;
 
-    @Column(name="cena", nullable = false)
-    private double cena;
-
     @Column(name="kategoria", nullable = false)
     private String kategoria;
+
+    @Column(name="cena", nullable = false)
+    private double cena;
 
     Product(int id, String nazwa, double cena, String kategoria)
     {

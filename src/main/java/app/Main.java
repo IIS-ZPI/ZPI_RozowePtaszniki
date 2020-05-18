@@ -27,10 +27,8 @@ public class Main {
 
         get(Paths.Web.CALCULATE, (req, res) -> {
             String dumbString = req.params(":product") + " " + req.params(":cost") + " " + req.params(":category") + " " + req.params(":final_cost"); // this needs to be changed @Leonard
-            ArrayList<ProfitData> profits = profitCalculator.Calculate(dumbString);
-            return getProfitDataJsonString(profits);
+            return profitCalculator.CalculateForAllStates(dumbString);
         });
-
     }
 
     private static String renderContent(String htmlFile) {
@@ -41,11 +39,6 @@ public class Main {
             e.printStackTrace();
         }
         return htmlString;
-    }
-
-    private static String getProfitDataJsonString(ArrayList<ProfitData> profits){
-        Gson gson = new Gson();
-        return gson.toJson(profits);
     }
 
     private static String getProductsJsonString(){
