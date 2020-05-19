@@ -1,5 +1,7 @@
 package app;
 
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ public class Product
     private String kategoria;
 
     @Column(name="cena", nullable = false)
+    @SerializedName("cena podstawowa")
     private double cena;
 
     Product(int id, String nazwa, double cena, String kategoria)

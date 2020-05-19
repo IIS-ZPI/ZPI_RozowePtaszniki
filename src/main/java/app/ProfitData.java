@@ -1,9 +1,13 @@
 package app;
 
-public class ProfitData {
+import com.google.gson.annotations.SerializedName;
 
+public class ProfitData {
+    @SerializedName("stan")
     private String nameOfState;
+    @SerializedName("zysk")
     private double profit;
+    @SerializedName("cena bez podatku")
     private double priceWithoutTaxes;
 
     public String getNameOfState() {

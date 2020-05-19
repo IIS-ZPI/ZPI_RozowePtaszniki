@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException, SQLException {
         ProfitCalculator profitCalculator = new ProfitCalculator();
+        //System.out.println(profitCalculator.CalculateForAllStates("Jabłko 0.2 groceries 10"));
 
         staticFiles.location("/public");
 
