@@ -52,9 +52,18 @@ public class Main {
         // This should return all products from database in a form of ArrayList but it's currently hardcoded instead.
         ArrayList<Product> allProducts = new ArrayList<>();
 
-        allProducts.add(new Product(0, "Ibuprom", 4.99, "prescriptionDrug"));
-        allProducts.add(new Product(1, "Aspiryna", 29.99, "nonPrescriptionDrug"));
-        allProducts.add(new Product(2, "Jabłko", 0.2, "groceries"));
+        allProducts.add(new Product(0, "Apple", 0.24, "Groceries"));
+        allProducts.add(new Product(1, "Orange", 0.35, "Groceries"));
+        allProducts.add(new Product(2, "Pineapple", 0.78, "Groceries"));
+        allProducts.add(new Product(3, "Oxycodone", 16.99, "Non-prescription-drug"));
+        allProducts.add(new Product(4, "Fentantyl", 13.58, "Non-prescription-drug"));
+        allProducts.add(new Product(5, "Morphine", 128.67, "Prescription-drug"));
+        allProducts.add(new Product(6, "Sweater", 118.56, "Clothing"));
+        allProducts.add(new Product(7, "Baseball_hat", 20.14, "Clothing"));
+        allProducts.add(new Product(8, "Mittens", 9.99, "Clothing"));
+        allProducts.add(new Product(9, "Ramen", 3.54, "Prepared-food"));
+        allProducts.add(new Product(10, "Canned_beans", 1.24, "Prepared-food"));
+        allProducts.add(new Product(11, "Tomato_puree", 0.78, "Prepared-food"));
 
         return allProducts;
     }
