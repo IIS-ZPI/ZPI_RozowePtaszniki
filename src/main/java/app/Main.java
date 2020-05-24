@@ -6,6 +6,7 @@ import spark.Spark;
 import spark.utils.IOUtils;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import static spark.Spark.*;
 
 public class Main {
 
-    public static void main(String[] args) throws URISyntaxException, SQLException {
+    public static void main(String[] args) {
         ProfitCalculator profitCalculator = new ProfitCalculator();
         //System.out.println(profitCalculator.CalculateForAllStates("Jabłko 0.2 groceries 10"));
 
@@ -42,30 +43,47 @@ public class Main {
         return htmlString;
     }
 
-    private static String getProductsJsonString(){
-        ArrayList<Product> allProducts = getAllProducts();
+    private static String getProductsJsonString() throws URISyntaxException, SQLException{
+        ArrayList<Product> allProducts = getProductsFromDB();
         Gson gson = new Gson();
         return gson.toJson(allProducts);
     }
 
-    private static ArrayList<Product> getAllProducts(){
-        // This should return all products from database in a form of ArrayList but it's currently hardcoded instead.
-        ArrayList<Product> allProducts = new ArrayList<>();
+    private static Connection getConnection() throws URISyntaxException, SQLException {
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-        allProducts.add(new Product(0, "Apple", 0.24, "Groceries"));
-        allProducts.add(new Product(1, "Orange", 0.35, "Groceries"));
-        allProducts.add(new Product(2, "Pineapple", 0.78, "Groceries"));
-        allProducts.add(new Product(3, "Oxycodone", 16.99, "Non-prescription-drug"));
-        allProducts.add(new Product(4, "Fentantyl", 13.58, "Non-prescription-drug"));
-        allProducts.add(new Product(5, "Morphine", 128.67, "Prescription-drug"));
-        allProducts.add(new Product(6, "Sweater", 118.56, "Clothing"));
-        allProducts.add(new Product(7, "Baseball_hat", 20.14, "Clothing"));
-        allProducts.add(new Product(8, "Mittens", 9.99, "Clothing"));
-        allProducts.add(new Product(9, "Ramen", 3.54, "Prepared-food"));
-        allProducts.add(new Product(10, "Canned_beans", 1.24, "Prepared-food"));
-        allProducts.add(new Product(11, "Tomato_puree", 0.78, "Prepared-food"));
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-        return allProducts;
+        return DriverManager.getConnection(dbUrl, username, password);
+    }
+
+    private static ArrayList<Product> getProductsFromDB() throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "SELECT * from public.\"Produkty\";";
+        ResultSet result = statement.executeQuery(query);
+        ArrayList<Product> products = new ArrayList<>();
+
+        while(result.next())
+        {
+            products.add(new Product(result.getInt("id"),result.getString("nazwa"),
+                    result.getDouble("cena"),result.getString("kategoria")));
+        }
+        return products;
+    }
+
+    // prototype of adding new products function (right now not in use)
+    private static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(" +
+                      pr.getId() + "," +
+                "'" + pr.getNazwa() + "'," +
+                      pr.getCena() + "," +
+                "'" + pr.getKategoria() + "');";
+        statement.executeQuery(query);
     }
 
     static int getHerokuAssignedPort() {
