@@ -3,11 +3,8 @@ package app;
 import com.google.gson.annotations.SerializedName;
 
 public class ProfitData {
-    @SerializedName("stan")
     private String nameOfState;
-    @SerializedName("zysk")
     private double profit;
-    @SerializedName("cena bez podatku")
     private double priceWithoutTaxes;
 
     public String getNameOfState() {
@@ -38,5 +35,13 @@ public class ProfitData {
         this.nameOfState = nameOfState;
         this.priceWithoutTaxes = priceWithoutTaxes;
         this.profit = profit;
+    }
+
+    @Override
+    public String toString() {
+        return  '\"' + nameOfState + "\":{" +
+                "\"zysk\":" + profit +
+                ",\"cena bez podatku\":" + priceWithoutTaxes +
+                "},";
     }
 }

@@ -5,6 +5,9 @@ import com.google.gson.Gson;
 import spark.Spark;
 import spark.utils.IOUtils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,7 +18,7 @@ import static spark.Spark.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException, SQLException {
         ProfitCalculator profitCalculator = new ProfitCalculator();
         //System.out.println(profitCalculator.CalculateForAllStates("Jabłko 0.2 groceries 10"));
 
@@ -31,6 +34,26 @@ public class Main {
             String dumbString = req.params(":product") + " " + req.params(":cost") + " " + req.params(":category") + " " + req.params(":final_cost"); // this needs to be changed @Leonard
             return profitCalculator.CalculateForAllStates(dumbString);
         });
+
+        /*Load products from csv file to products ArrayList*/
+        ArrayList<Product> products = null;
+        System.out.println("Products from csv file: ");
+        try {
+            products = csvReader("products.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (products != null)
+            for (Product product : products) {
+                System.out.println(product.getId() + "," + product.getNazwa() + "," + product.getCena() + "," + product.getKategoria());
+            }
+
+        /*Adding products list from csv to DB - maybe exist problem with id (look method csvReader()) */
+        for (Product product : products) {
+            //putProductIntoDB(product);
+
+        }
     }
 
     private static String renderContent(String htmlFile) {
@@ -44,11 +67,14 @@ public class Main {
     }
 
     private static String getProductsJsonString() throws URISyntaxException, SQLException{
-        ArrayList<Product> allProducts = getProductsFromDB();
+        Database db = new Database();
+        ArrayList<Product> allProducts = db.getProductsFromDB();
         Gson gson = new Gson();
         return gson.toJson(allProducts);
     }
 
+<<<<<<< HEAD
+=======
     private static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -74,6 +100,35 @@ public class Main {
         return products;
     }
 
+    static ArrayList <Product> csvReader(String path) throws IOException {
+        ArrayList <Product> products = new ArrayList<>();
+        String row;
+
+        int id = 11; //nextid from db
+
+        BufferedReader csvReader = new BufferedReader(new FileReader(path));
+        while ((row = csvReader.readLine()) != null) {
+            Product product = new Product(0,"nazwa",0.00,"kategoria");
+
+            String[] data = row.split(";");
+            product.setId(id);
+            product.setNazwa(data[0]);
+            product.setCena(Double.parseDouble(data[1]));
+            if(data[2] == "groceries" ||
+                    data[2] == "preparedFood" ||
+                    data[2] == "prescriptionDrug" ||
+                    data[2] == "nonPrescriptionDrug" ||
+                    data[2] == "clothing" ||
+                    data[2] == "intangibles");
+            product.setKategoria(data[2]);
+            id++;
+            products.add(product);
+        }
+
+        csvReader.close();
+        return products;
+    }
+
     // prototype of adding new products function (right now not in use)
     private static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
         Connection conn = getConnection();
@@ -86,6 +141,7 @@ public class Main {
         statement.executeQuery(query);
     }
 
+>>>>>>> 023917f7373ed36fec8bf7009e772fa90db6d269
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {

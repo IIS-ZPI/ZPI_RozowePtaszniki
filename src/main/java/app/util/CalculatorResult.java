@@ -23,7 +23,15 @@ public class CalculatorResult {
     }
 
     public String getResult() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        StringBuilder result = new StringBuilder();
+        result.append("{" + "\"id\":").append(id).append(",");
+        result.append("\"cena podstawowa\":").append(startingPrice).append(",");
+        result.append("\"pożądana cena\":").append(finalPrice).append(",");
+        for(ProfitData val : states) {
+            result.append(val.toString());
+        }
+        result.deleteCharAt(result.lastIndexOf(","));
+        result.append("}");
+        return result.toString();
     }
 }
