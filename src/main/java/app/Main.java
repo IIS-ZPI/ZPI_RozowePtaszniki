@@ -31,8 +31,7 @@ public class Main {
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
         get(Paths.Web.CALCULATE, (req, res) -> {
-            String dumbString = req.params(":product") + " " + req.params(":cost") + " " + req.params(":category") + " " + req.params(":final_cost"); // this needs to be changed @Leonard
-            return profitCalculator.CalculateForAllStates(dumbString);
+            return profitCalculator.CalculateForAllStates(req.params(":id"),req.params(":final_cost"));
         });
 
         /*
@@ -87,15 +86,15 @@ public class Main {
 
             String[] data = row.split(";");
             product.setId(id);
-            product.setNazwa(data[0]);
-            product.setCena(Double.parseDouble(data[1]));
+            product.setName(data[0]);
+            product.setPrice(Double.parseDouble(data[1]));
             if(data[2] == "groceries" ||
                     data[2] == "preparedFood" ||
                     data[2] == "prescriptionDrug" ||
                     data[2] == "nonPrescriptionDrug" ||
                     data[2] == "clothing" ||
                     data[2] == "intangibles");
-            product.setKategoria(data[2]);
+            product.setCategory(data[2]);
             id++;
             products.add(product);
         }
