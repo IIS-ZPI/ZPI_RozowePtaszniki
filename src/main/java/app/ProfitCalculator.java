@@ -1,8 +1,9 @@
 package app;
 import app.util.CalculatorResult;
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProfitCalculator {
@@ -20,23 +21,23 @@ public class ProfitCalculator {
     }
 
     /**
-     * @param request product, cost, category, final_cost
      * @return ProfitData ArrayList to json
      * @throws IllegalArgumentException
      */
-    public String CalculateForAllStates(String request) throws IllegalArgumentException {
+    public String CalculateForAllStates(String id, String finalCost) throws IllegalArgumentException {
         this.id++;
-        if(request == null )
+        if(id == null || finalCost == null)
             throw new IllegalArgumentException();
-
-        String[] values = request.split(" ");
-
-        if(values.length < 4)
-            throw new IllegalArgumentException();
+        Product product = null;
 
         try {
-            this.startingPrice = Double.parseDouble(values[1]);
-            this.finalPrice = Double.parseDouble(values[3]);
+            product = Database.getProductById(Integer.parseInt(id));
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            this.finalPrice = Double.parseDouble(finalCost);
         }catch (NumberFormatException e){
             throw new IllegalArgumentException();
         }
@@ -45,18 +46,30 @@ public class ProfitCalculator {
         for (TaxesInState val : this.taxesInStates) {
             double baseTax = 0;
             try {
-                baseTax = parseValue(val.getTaxForCategory(values[2]),baseTax,finalPrice);
+                baseTax = parseValue(val.getTaxForCategory(product.getCategory()),baseTax,finalPrice);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException();
             }
 
             double finalPriceWithoutTaxes = Math.round(this.finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
-            listOfProfits.add(new ProfitData(val.getName(),finalPriceWithoutTaxes, finalPriceWithoutTaxes - this.startingPrice ));
+            listOfProfits.add(new ProfitData(val.getName(),finalPriceWithoutTaxes, finalPriceWithoutTaxes - product.getPrice() ));
         }
 
-        CalculatorResult result = new CalculatorResult(this.id,this.finalPrice,this.startingPrice,listOfProfits);
+        CalculatorResult result = new CalculatorResult(this.id,this.finalPrice,product.getPrice(),listOfProfits);
         return result.getResult();
+    }
+
+    private double parseValue(String val, double baseTax, double finalPrice) {
+        if(val.contains("$")) {
+            double limit = Double.parseDouble(val.substring(val.indexOf("$")+1));
+            if(limit > finalPrice)
+                baseTax = 0;
+        }
+        else {
+            baseTax = Double.parseDouble(val);
+        }
+        return baseTax;
     }
 
     /**
@@ -64,6 +77,7 @@ public class ProfitCalculator {
      * @return ProfitData to json
      * @throws IllegalArgumentException
      */
+    /*
     public String CalculateForSingleStates(String request) throws IllegalArgumentException {
         if(request == null )
             throw new IllegalArgumentException();
@@ -102,17 +116,8 @@ public class ProfitCalculator {
         Gson gson = new Gson();
         return gson.toJson(new ProfitData(tax.getName(),finalPriceWithoutTaxes, finalPriceWithoutTaxes - this.startingPrice ));
     }
+     */
 
-    private double parseValue(String val, double baseTax, double finalPrice) {
-        if(val.contains("$")) {
-            double limit = Double.parseDouble(val.substring(val.indexOf("$")+1));
-            if(limit > finalPrice)
-                baseTax = 0;
-        }
-        else {
-            baseTax = Double.parseDouble(val);
-        }
-        return baseTax;
-    }
+
 
 }

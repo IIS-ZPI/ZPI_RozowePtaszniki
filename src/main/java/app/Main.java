@@ -35,7 +35,8 @@ public class Main {
             return profitCalculator.CalculateForAllStates(dumbString);
         });
 
-        /*Load products from csv file to products ArrayList*/
+        /*
+        //Load products from csv file to products ArrayList
         ArrayList<Product> products = null;
         System.out.println("Products from csv file: ");
         try {
@@ -49,11 +50,13 @@ public class Main {
                 System.out.println(product.getId() + "," + product.getNazwa() + "," + product.getCena() + "," + product.getKategoria());
             }
 
-        /*Adding products list from csv to DB - maybe exist problem with id (look method csvReader()) */
+        //Adding products list from csv to DB - maybe exist problem with id (look method csvReader())
         for (Product product : products) {
             //putProductIntoDB(product);
 
         }
+         */
+
     }
 
     private static String renderContent(String htmlFile) {
@@ -67,37 +70,9 @@ public class Main {
     }
 
     private static String getProductsJsonString() throws URISyntaxException, SQLException{
-        Database db = new Database();
-        ArrayList<Product> allProducts = db.getProductsFromDB();
+        ArrayList<Product> allProducts = Database.getProductsFromDB();
         Gson gson = new Gson();
         return gson.toJson(allProducts);
-    }
-
-<<<<<<< HEAD
-=======
-    private static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-
-        return DriverManager.getConnection(dbUrl, username, password);
-    }
-
-    private static ArrayList<Product> getProductsFromDB() throws URISyntaxException, SQLException {
-        Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        String query = "SELECT * from public.\"Produkty\";";
-        ResultSet result = statement.executeQuery(query);
-        ArrayList<Product> products = new ArrayList<>();
-
-        while(result.next())
-        {
-            products.add(new Product(result.getInt("id"),result.getString("nazwa"),
-                    result.getDouble("cena"),result.getString("kategoria")));
-        }
-        return products;
     }
 
     static ArrayList <Product> csvReader(String path) throws IOException {
@@ -129,19 +104,6 @@ public class Main {
         return products;
     }
 
-    // prototype of adding new products function (right now not in use)
-    private static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
-        Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        String query = "INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(" +
-                      pr.getId() + "," +
-                "'" + pr.getNazwa() + "'," +
-                      pr.getCena() + "," +
-                "'" + pr.getKategoria() + "');";
-        statement.executeQuery(query);
-    }
-
->>>>>>> 023917f7373ed36fec8bf7009e772fa90db6d269
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {

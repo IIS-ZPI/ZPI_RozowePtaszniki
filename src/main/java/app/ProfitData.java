@@ -1,7 +1,5 @@
 package app;
 
-import com.google.gson.annotations.SerializedName;
-
 public class ProfitData {
     private String nameOfState;
     private double profit;

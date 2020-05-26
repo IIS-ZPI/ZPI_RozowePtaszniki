@@ -14,21 +14,21 @@ public class Product
     private int id;
 
     @Column(name="nazwa", nullable = false)
-    private String nazwa;
+    private String name;
 
     @Column(name="kategoria", nullable = false)
-    private String kategoria;
+    private String category;
 
     @Column(name="cena", nullable = false)
     @SerializedName("cena podstawowa")
-    private double cena;
+    private double price;
 
-    Product(int id, String nazwa, double cena, String kategoria)
+    Product(int id, String name, double price, String category)
     {
         this.id = id;
-        this.nazwa = nazwa;
-        this.cena = cena;
-        this.kategoria = kategoria;
+        this.name = name;
+        this.price = price;
+        this.category = category;
     }
 
     public int getId() {
@@ -39,27 +39,27 @@ public class Product
         this.id = id;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getName() {
+        return name;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getCena() {
-        return cena;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCena(double cena) {
-        this.cena = cena;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getKategoria() {
-        return kategoria;
+    public double getPrice() {
+        return price;
     }
 
-    public void setKategoria(String kategoria) {
-        this.kategoria = kategoria;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
