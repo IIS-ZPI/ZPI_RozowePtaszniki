@@ -20,19 +20,19 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException, SQLException {
         ProfitCalculator profitCalculator = new ProfitCalculator();
-        //System.out.println(profitCalculator.CalculateForAllStates("Jabłko 0.2 groceries 10"));
-
         staticFiles.location("/public");
-
         port(getHerokuAssignedPort());
 
         get(Paths.Web.START_PAGE, (req, res) -> renderContent(Paths.Template.INDEX));
 
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
-        get(Paths.Web.CALCULATE, (req, res) -> {
-            return profitCalculator.CalculateForAllStates(req.params(":id"),req.params(":final_cost"));
-        });
+        get(Paths.Web.CALCULATE, (req, res) -> profitCalculator.CalculateForAllStates(
+                req.params(":productID"),
+                req.params(":category"),
+                req.params(":basePrice"),
+                req.params(":finalPrice")
+        ));
 
         /*
         //Load products from csv file to products ArrayList

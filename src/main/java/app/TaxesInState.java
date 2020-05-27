@@ -2,8 +2,8 @@ package app;
 
 public class TaxesInState {
     private String name;
-    private  double baseTax;
-    private  double maxLocalSurtax;
+    private double baseTax;
+    private double maxLocalSurtax;
     private String groceries;
     private String preparedFood;
     private String prescriptionDrug;
@@ -16,10 +16,10 @@ public class TaxesInState {
         this.baseTax = baseTax;
         this.maxLocalSurtax = maxLocalSurtax;
         this.groceries = groceries;
-        this.preparedFood = preparedFood;
-        this.prescriptionDrug = prescriptionDrug;
         this.nonPrescriptionDrug = nonPrescriptionDrug;
+        this.prescriptionDrug = prescriptionDrug;
         this.clothing = clothing;
+        this.preparedFood = preparedFood;
         this.intangibles = intangibles;
     }
 
@@ -31,8 +31,25 @@ public class TaxesInState {
         return baseTax;
     }
 
-    public String getTaxForCategory(String Category) throws NoSuchFieldException, IllegalAccessException {
-        return (String) this.getClass().getDeclaredField(Category).get(this);
+    public String getTaxForCategory(String category) throws NoSuchFieldException, IllegalAccessException {
+        switch (category){
+            case "Groceries":
+                return groceries;
+            case "Non-prescription-drug":
+                return nonPrescriptionDrug;
+            case "Non-prescription-drugs":
+                return nonPrescriptionDrug;
+            case "Prescription-drug":
+                return prescriptionDrug;
+            case "Clothing":
+                return clothing;
+            case "Prepared-food":
+                return preparedFood;
+            case "Intangibles":
+                return intangibles;
+            default:
+                return null;
+        }
     }
 }
 

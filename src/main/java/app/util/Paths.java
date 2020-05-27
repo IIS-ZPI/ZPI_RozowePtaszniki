@@ -7,7 +7,7 @@ public class Paths {
         public static final String START_PAGE = "/";
         public final static String HELLO = "/hello";
         public static final String PRODUCTS = "/products";
-        public static final String CALCULATE = "/calculate/:product/:cost/:category/:final_cost";
+        public static final String CALCULATE = "/calculate/:productID/:category/:basePrice/:finalPrice";
     }
 
     public static class Template {
