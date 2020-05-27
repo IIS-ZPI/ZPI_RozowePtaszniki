@@ -18,41 +18,37 @@
 
 
 <body>
-
-<!-- Editable table -->
 <div class="card">
-    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">ALL PRODUCTS</h3>
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Sales in USA</h3>
     <div class="card-body">
 
-
+        <!-- Table starts here -->
         <div id="products-table" class="table-editable">
 
-            <!-- add row button -->
+            <!-- Add product button -->
             <span class="table-add float-right mb-3 mr-2">
-                <a href="#!" class="text-success">
+                <a data-toggle="modal" data-target="#add-product-modal" class="text-success">
                     <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
                 </a>
             </span>
 
             <table class="table table-bordered table-responsive-md table-striped text-center">
                 <thead id="columnsBody">
-                    <!-- COLUMNS WILL BE GENERATED HERE -->
+                <!-- COLUMNS WILL BE GENERATED HERE -->
                 </thead>
 
                 <tbody id="tableBody">
-                    <!-- ROWS WILL BE GENERATED HERE -->
+                <!-- ROWS WILL BE GENERATED HERE -->
                 </tbody>
             </table>
 
         </div>
+
     </div>
 </div>
-<!-- Editable table -->
 
 
-
-
-<!-- Modal -->
+<!-- Show prices modal -->
 <div class="modal fade" id="calculate-modal" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -71,56 +67,56 @@
                         <label for="usa-state-id" class="control-label">Stan (USA)</label>
                         <select class="form-control" id="usa-state-id" title="Choose state...">
                             <option value="AL">Alabama</option>
-                           <!-- <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>-->
+                            <!-- <option value="AK">Alaska</option>
+                             <option value="AZ">Arizona</option>
+                             <option value="AR">Arkansas</option>-->
                             <option value="CA">California</option>
-                         <!--   <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="DC">District Of Columbia</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="ID">Idaho</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NV">Nevada</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="OH">Ohio</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="OR">Oregon</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="TX">Texas</option>
-                            <option value="UT">Utah</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WA">Washington</option>
-                            <option value="WV">West Virginia</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WY">Wyoming</option>-->
+                            <!--   <option value="CO">Colorado</option>
+                               <option value="CT">Connecticut</option>
+                               <option value="DE">Delaware</option>
+                               <option value="DC">District Of Columbia</option>
+                               <option value="FL">Florida</option>
+                               <option value="GA">Georgia</option>
+                               <option value="HI">Hawaii</option>
+                               <option value="ID">Idaho</option>
+                               <option value="IL">Illinois</option>
+                               <option value="IN">Indiana</option>
+                               <option value="IA">Iowa</option>
+                               <option value="KS">Kansas</option>
+                               <option value="KY">Kentucky</option>
+                               <option value="LA">Louisiana</option>
+                               <option value="ME">Maine</option>
+                               <option value="MD">Maryland</option>
+                               <option value="MA">Massachusetts</option>
+                               <option value="MI">Michigan</option>
+                               <option value="MN">Minnesota</option>
+                               <option value="MS">Mississippi</option>
+                               <option value="MO">Missouri</option>
+                               <option value="MT">Montana</option>
+                               <option value="NE">Nebraska</option>
+                               <option value="NV">Nevada</option>
+                               <option value="NH">New Hampshire</option>
+                               <option value="NJ">New Jersey</option>
+                               <option value="NM">New Mexico</option>
+                               <option value="NY">New York</option>
+                               <option value="NC">North Carolina</option>
+                               <option value="ND">North Dakota</option>
+                               <option value="OH">Ohio</option>
+                               <option value="OK">Oklahoma</option>
+                               <option value="OR">Oregon</option>
+                               <option value="PA">Pennsylvania</option>
+                               <option value="RI">Rhode Island</option>
+                               <option value="SC">South Carolina</option>
+                               <option value="SD">South Dakota</option>
+                               <option value="TN">Tennessee</option>
+                               <option value="TX">Texas</option>
+                               <option value="UT">Utah</option>
+                               <option value="VT">Vermont</option>
+                               <option value="VA">Virginia</option>
+                               <option value="WA">Washington</option>
+                               <option value="WV">West Virginia</option>
+                               <option value="WI">Wisconsin</option>
+                               <option value="WY">Wyoming</option>-->
                         </select>
                     </div>
 
@@ -134,10 +130,10 @@
                         <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>
                     </div>
 
-<!--                    <div class="form-group">-->
-<!--                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>-->
-<!--                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>-->
-<!--                    </div>-->
+                    <!--                    <div class="form-group">-->
+                    <!--                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>-->
+                    <!--                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>-->
+                    <!--                    </div>-->
 
                     <div class="form-group">
                         <label for="no-tax-price-id" class="control-label">Cena bez podatku</label>
@@ -159,8 +155,23 @@
 </div>
 
 
-
-
+<!--Add product modal -->
+<div class="modal fade" id="add-product-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dodaj produkt</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    Not implemented yet...
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- JQuery -->
@@ -168,7 +179,8 @@
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 

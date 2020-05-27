@@ -14,7 +14,7 @@ export const productBasePrice = "cena podstawowa";
 // THIS SHOULD BE THE SAME AS IN JSON RETURNED BY 'localhost:4567/calculate' !!!!!!!!
 export const noTaxPrice = "cena bez podatku";
 export const profit = "zysk";
-// {"id": 0, "cena podstawowa": #15.00, "pożądana cena": $19.99, "cena bez podatku": $17:49, "Alabama": {"zysk": $15.90}, "California": {"zysk": $11.87}
+// {"id": 0, "cena podstawowa": $15.00, "pożądana cena": $19.99, "cena bez podatku": $17:49, "Alabama": {"zysk": $15.90}, "California": {"zysk": $11.87}
 
 
 // THESE NAMES ARE INDEPENDENT FROM SERVER
