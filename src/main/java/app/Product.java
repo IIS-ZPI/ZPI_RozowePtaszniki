@@ -14,9 +14,11 @@ public class Product
     private int id;
 
     @Column(name="nazwa", nullable = false)
+    @SerializedName("nazwa")
     private String name;
 
     @Column(name="kategoria", nullable = false)
+    @SerializedName("kategoria")
     private String category;
 
     @Column(name="cena", nullable = false)
