@@ -35,8 +35,8 @@ export function createTableFromJSON(data) {
         htmlString += `<td id="${productCategory + id}">${data[i][productCategory]}</td>`;
         htmlString += `<td id="${productBasePrice + id}">${data[i][productBasePrice]}</td>`;
         //htmlString += `<td id="${productLogisticCosts + id}" contenteditable="true">0</td>`;
-        htmlString += `<td id="${productFinalPrice + id}" contenteditable="true">$0</td>`;
-        htmlString += createCalculateButton(id);
+        htmlString += `<td id="${productFinalPrice + id}" class="final-price" contenteditable="true">0</td>`;
+        htmlString += createShowPricesButton(id);
         htmlString += createRemoveButton(id);
         htmlString += `</tr>`;
     }
@@ -49,9 +49,9 @@ export function createRemoveButton(id) {
     return htmlString;
 }
 
-export function createCalculateButton(id) {
-    let htmlString = `<td id="${productCalculatePrice+id}" class="table-calculate">`;
-    htmlString += `<button type="button" class="btn btn-rounded btn-default btn-sm" data-toggle="modal" data-target="#calculate-modal">`;
+export function createShowPricesButton(id) {
+    let htmlString = `<td id="${productCalculatePrice+id}" class="table-show-prices">`;
+    htmlString += `<button type="button" class="btn btn-rounded btn-default btn-sm" data-toggle="modal" data-target="#show-prices-modal">`;
     htmlString += `${productCalculatePrice}</button></td>`;
     return htmlString;
 }

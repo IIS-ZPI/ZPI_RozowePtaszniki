@@ -1,5 +1,6 @@
 import {createTableFromJSON} from "./table-creation.js";
-import {noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts} from "./config.js";
+import {noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts,
+    productCategory, productID} from "./config.js";
 
 
 $(document).ready(function () {
@@ -11,6 +12,8 @@ $(document).ready(function () {
 let productsData;
 let productsLastCalculatedPricesData = {};
 
+let currentID = null;
+
 
 function main(){
 
@@ -18,12 +21,29 @@ function main(){
     $.getJSON("/products", function(data) {
         productsData = data;
         createTableFromJSON(data);
+        calculatePriceForEveryProduct();
     });
 
 
-    $('#products-table').on('click', '.table-calculate', function () {
+    $('body').on('focus', '[contenteditable]', function() {
+        const $this = $(this);
+        $this.data('before', $this.html());
+    }).on('blur keyup paste input', '[contenteditable]', function() {
+        const $this = $(this);
+        if ($this.data('before') !== $this.html()) {
+            $this.data('before', $this.html());
+            $this.trigger('change');
+        }
+    }).on('change', '[contenteditable]', function() {
         let id = $(this).parents("tr")[0].id;
-        calculatePrice(id);
+        getPricesFromServer(id);
+        console.log(id);
+    });
+
+
+    $('#products-table').on('click', '.table-show-prices', function () {
+        let id = $(this).parents("tr")[0].id;
+        currentID = id;
         updateModalContent(productsLastCalculatedPricesData[id]);
     });
 
@@ -36,38 +56,46 @@ function main(){
 
 
     $('#usa-state-id').change(function (e) {
-        // TODO
-        alert($(e.target).val());
+        updateModalContent(productsLastCalculatedPricesData[currentID]);
     });
 }
 
 
-function calculatePrice(id){
-    let finalPriceValue = document.getElementById(productFinalPrice+id).value;
-    $.getJSON("/calculate/" + id + "/" + finalPriceValue, function(data) {
+function calculatePriceForEveryProduct(){
+    for (let i=0; i<productsData.length; i++){
+        getPricesFromServer(productsData[i][productID]);
+    }
+}
+
+
+function getPricesFromServer(id){
+    let category = document.getElementById(productCategory+id).textContent;
+    let basePriceValue = document.getElementById(productBasePrice+id).textContent;
+    let finalPriceValue = document.getElementById(productFinalPrice+id).textContent;
+    let request = "/calculate/" + id + "/" + category + "/" + basePriceValue + "/" + finalPriceValue;
+    $.getJSON(request, function(data) {
         productsLastCalculatedPricesData[id] = data;
-        console.log("asdasd", productsLastCalculatedPricesData[id]);
     });
 }
+
 
 function updateModalContent(data) {
+    if (data === undefined)
+        return;
 
     let basePriceModalCell = document.getElementById("base-price-id");
     let finalPriceModalCell = document.getElementById("final-price-id");
     let stateModalCell = document.getElementById("usa-state-id");
-    let logisticCostsModalCell = document.getElementById("logistic-costs-id");
+    // let logisticCostsModalCell = document.getElementById("logistic-costs-id");
     let noTaxPriceModalCell = document.getElementById("no-tax-price-id");
     let profitModalCell = document.getElementById("profit-id");
 
     let stateName = stateModalCell.options[stateModalCell.selectedIndex].innerText;
     basePriceModalCell.setAttribute("placeholder", data[productBasePrice]);
     finalPriceModalCell.setAttribute("placeholder", data[productFinalPrice]);
-    noTaxPriceModalCell.setAttribute("placeholder", data[noTaxPrice]);
+    noTaxPriceModalCell.setAttribute("placeholder", data[stateName][noTaxPrice]);
     profitModalCell.setAttribute("placeholder", data[stateName][profit]);
 
     // TODO
     //logisticCostsModalCell.setAttribute("placeholder", data[productLogisticCosts]);
 }
-
-
-

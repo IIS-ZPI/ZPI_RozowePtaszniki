@@ -14,12 +14,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
 
 <body>
 <div class="card">
-    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Sales in USA</h3>
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Sprzedaż w USA</h3>
     <div class="card-body">
 
         <!-- Table starts here -->
@@ -49,12 +51,12 @@
 
 
 <!-- Show prices modal -->
-<div class="modal fade" id="calculate-modal" tabindex="-1" role="dialog"
+<div class="modal fade" id="show-prices-modal" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Here you can see different prices</h5>
+                <h5 class="modal-title">Tu możesz zobaczyć ceny dla różnych stanów</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -164,7 +166,7 @@
             </div>
             <div class="modal-body">
                 <form>
-                    Not implemented yet...
+                    Not yet implemented...
                 </form>
             </div>
             <div class="modal-footer">
@@ -173,6 +175,8 @@
     </div>
 </div>
 
+
+</body>
 
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -183,13 +187,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
-
-
-<script type="module" src="../js/main.js">
-
-</script>
-
-</body>
-
+<!--Custom js-->
+<script type="module" src="../js/main.js"></script>
 
 </html>
