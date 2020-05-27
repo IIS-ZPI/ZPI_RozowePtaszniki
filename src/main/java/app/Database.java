@@ -10,7 +10,7 @@ public class Database
     Database(){};
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI("postgres://udhucrklgwuool:14aa1ba0e165ded22d5ecc0d229b05853440dd1a9060e230dec9a7a2032d2ef4@ec2-52-71-231-180.compute-1.amazonaws.com:5432/d1o4dv51v3ujft");
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
