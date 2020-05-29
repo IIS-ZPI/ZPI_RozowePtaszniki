@@ -32,6 +32,3 @@ steps:
       # Write your PowerShell commands here.
       $Env:HEROKU_API_KEY = "$(pat)"
       mvn heroku:deploy
-      git checkout $(Build.SourceBranchName)
-      git remote add heroku https://heroku:$(pat)@git.heroku.com/zpi-rp.git
-      git push heroku $(Build.SourceBranchName):master
