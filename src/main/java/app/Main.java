@@ -34,28 +34,7 @@ public class Main {
                 req.params(":finalPrice")
         ));
 
-        /*
-        //Load products from csv file to products ArrayList
-        ArrayList<Product> products = null;
-        System.out.println("Products from csv file: ");
-        try {
-            products = csvReader("products.csv");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (products != null)
-            for (Product product : products) {
-                System.out.println(product.getId() + "," + product.getNazwa() + "," + product.getCena() + "," + product.getKategoria());
-            }
-
-        //Adding products list from csv to DB - maybe exist problem with id (look method csvReader())
-        for (Product product : products) {
-            //putProductIntoDB(product);
-
-        }
-         */
-
+        //CsvReader csvReader = new CsvReader();
     }
 
     private static String renderContent(String htmlFile) {
@@ -72,35 +51,6 @@ public class Main {
         ArrayList<Product> allProducts = Database.getProductsFromDB();
         Gson gson = new Gson();
         return gson.toJson(allProducts);
-    }
-
-    static ArrayList <Product> csvReader(String path) throws IOException {
-        ArrayList <Product> products = new ArrayList<>();
-        String row;
-
-        int id = 11; //nextid from db
-
-        BufferedReader csvReader = new BufferedReader(new FileReader(path));
-        while ((row = csvReader.readLine()) != null) {
-            Product product = new Product(0,"nazwa",0.00,"kategoria");
-
-            String[] data = row.split(";");
-            product.setId(id);
-            product.setName(data[0]);
-            product.setPrice(Double.parseDouble(data[1]));
-            if(data[2] == "groceries" ||
-                    data[2] == "preparedFood" ||
-                    data[2] == "prescriptionDrug" ||
-                    data[2] == "nonPrescriptionDrug" ||
-                    data[2] == "clothing" ||
-                    data[2] == "intangibles");
-            product.setCategory(data[2]);
-            id++;
-            products.add(product);
-        }
-
-        csvReader.close();
-        return products;
     }
 
     static int getHerokuAssignedPort() {
