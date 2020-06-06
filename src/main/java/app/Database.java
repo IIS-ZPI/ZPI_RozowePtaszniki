@@ -19,20 +19,20 @@ public class Database
         return DriverManager.getConnection(dbUrl, username, password);
     }
 
-    public static Product getProductById(int id) throws URISyntaxException, SQLException {
-        System.out.println("id");
-        System.out.println(id);
+    public static ArrayList<Product> getProductById(int id) throws URISyntaxException, SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        String query = "SELECT * from public.\"Produkty\" WHERE id=" + Integer.toString(id) + ";";
-        System.out.println(query);
+        String query = "SELECT * from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
         ResultSet result = statement.executeQuery(query);
-        return new Product(
-                result.getInt("id"),
-                result.getString("nazwa"),
-                result.getDouble("cena"),
-                result.getString("kategoria")
-        );
+        ArrayList<Product> products = new ArrayList<>();
+
+        while(result.next())
+        {
+            products.add(new Product(result.getInt("id"),result.getString("nazwa"),
+                    result.getDouble("cena"),result.getString("kategoria")));
+        }
+
+        return products;
     }
 
     public static ArrayList<Product> getProductsFromDB() throws URISyntaxException, SQLException {
