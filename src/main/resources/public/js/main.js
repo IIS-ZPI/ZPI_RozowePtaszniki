@@ -1,11 +1,12 @@
 import {createTableFromJSON} from "./table-creation.js";
-import {noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts,
-    productCategory, productID} from "./config.js";
+import {
+    noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts,
+    productCategory, productID
+} from "./config.js";
 
 
 $(document).ready(function () {
     main();
-
 });
 
 
@@ -16,10 +17,10 @@ let productsLastCalculatedPricesData = {};
 let currentID = null;
 
 
-function main(){
+function main() {
 
     // at the start create table from 'localhost:4567/products' data
-    $.getJSON("/products", function(data) {
+    $.getJSON("/products", function (data) {
         productsData = data;
         createTableFromJSON(data);
         calculatePriceForEveryProduct();
@@ -28,7 +29,7 @@ function main(){
         $('#products-table').DataTable({
             columnDefs: [{
                 orderable: false,
-                targets: [5, 6]
+                targets: [5, 6] // remove sorting buttons on those columns
             }]
         });
         $('.dataTables_length').addClass('bs-select');
@@ -36,16 +37,28 @@ function main(){
     });
 
 
-    $('body').on('focus', '[contenteditable]', function() {
+    $('body').on('keydown', function(event) {
+        if (event.which === 13 && event.shiftKey === false) {
+            // event.preventDefault();
+            $(':focus').blur();
+            //You could do other things here, for example
+            //focus on the next field
+            return false;
+        }
+    });
+
+
+    // this is for sending requests to backend when content in final price cell changes
+    $('body').on('focus', '[contenteditable]', function () {
         const $this = $(this);
         $this.data('before', $this.html());
-    }).on('blur keyup paste input', '[contenteditable]', function() {
+    }).on('blur keyup paste input', '[contenteditable]', function () {
         const $this = $(this);
         if ($this.data('before') !== $this.html()) {
             $this.data('before', $this.html());
             $this.trigger('change');
         }
-    }).on('change', '[contenteditable]', function() {
+    }).on('change', '[contenteditable]', function () {
         let id = $(this).parents("tr")[0].id;
         getPricesFromServer(id);
         console.log(id);
@@ -72,19 +85,19 @@ function main(){
 }
 
 
-function calculatePriceForEveryProduct(){
-    for (let i=0; i<productsData.length; i++){
+function calculatePriceForEveryProduct() {
+    for (let i = 0; i < productsData.length; i++) {
         getPricesFromServer(productsData[i][productID]);
     }
 }
 
 
-function getPricesFromServer(id){
-    let category = document.getElementById(productCategory+id).textContent;
-    let basePriceValue = document.getElementById(productBasePrice+id).textContent;
-    let finalPriceValue = document.getElementById(productFinalPrice+id).textContent;
+function getPricesFromServer(id) {
+    let category = document.getElementById(productCategory + id).textContent;
+    let basePriceValue = document.getElementById(productBasePrice + id).textContent;
+    let finalPriceValue = document.getElementById(productFinalPrice + id).textContent;
     let request = "/calculate/" + id + "/" + category + "/" + basePriceValue + "/" + finalPriceValue;
-    $.getJSON(request, function(data) {
+    $.getJSON(request, function (data) {
         productsLastCalculatedPricesData[id] = data;
     });
 }
