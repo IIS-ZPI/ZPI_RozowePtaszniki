@@ -16,6 +16,8 @@ let productsLastCalculatedPricesData = {};
 
 let currentID = null;
 
+let dataTable = null;
+
 
 function main() {
 
@@ -26,18 +28,17 @@ function main() {
         calculatePriceForEveryProduct();
 
         // THIS NEEDS TO BE CALLED ONLY AFTER COLUMNS ARE CREATED WITH createTableFromJSON() function!
-        $('#products-table').DataTable({
+        dataTable = $('#products-table').DataTable({
             columnDefs: [{
                 orderable: false,
                 targets: [5, 6] // remove sorting buttons on those columns
             }]
         });
         $('.dataTables_length').addClass('bs-select');
-
     });
 
 
-    $('body').on('keydown', function(event) {
+    $('body').on('keydown', function (event) {
         if (event.which === 13 && event.shiftKey === false) {
             // event.preventDefault();
             $(':focus').blur();
@@ -49,7 +50,7 @@ function main() {
 
 
     // this is for sending requests to backend when content in final price cell changes
-    $('body').on('focus', '[contenteditable]', function () {
+    $('#products-table').on('focus', '[contenteditable]', function () {
         const $this = $(this);
         $this.data('before', $this.html());
     }).on('blur keyup paste input', '[contenteditable]', function () {
@@ -62,6 +63,7 @@ function main() {
         let id = $(this).parents("tr")[0].id;
         getPricesFromServer(id);
         console.log(id);
+        dataTable.cell(this).invalidate();  // this is to cache cell data again after it changes so sorting still works
     });
 
 
