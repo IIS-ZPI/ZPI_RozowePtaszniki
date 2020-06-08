@@ -35,17 +35,11 @@ function main() {
             }]
         });
         $('.dataTables_length').addClass('bs-select');
-
-        // this is for sending requests to backend when content in final price cell changes
-        // also prevent typing letters
+        
+        // prevent typing letters
         // loose focus on enter
         $(".final-price").keypress(function(e){
-            if ((e.which >= 48 && e.which <= 57) || e.which===46){
-                let id = $(this).parents("tr")[0].id;
-                getPricesFromServer(id);
-                console.log(id);
-                dataTable.cell(this).invalidate(); // this is to cache cell data again after it changes so sorting still works
-            }
+            if ((e.which >= 48 && e.which <= 57) || e.which===46){}
             else if (e.which === 13){
                 $(':focus').blur();
             }
@@ -54,6 +48,24 @@ function main() {
             }
 
         });
+    });
+
+
+    // this is for sending requests to backend when content in final price cell changes
+    $('#products-table').on('focus', '[contenteditable]', function () {
+        const $this = $(this);
+        $this.data('before', $this.html());
+    }).on('blur keyup paste input', '[contenteditable]', function () {
+        const $this = $(this);
+        if ($this.data('before') !== $this.html()) {
+            $this.data('before', $this.html());
+            $this.trigger('change');
+        }
+    }).on('change', '[contenteditable]', function () {
+        let id = $(this).parents("tr")[0].id;
+        getPricesFromServer(id);
+        console.log(id);
+        dataTable.cell(this).invalidate();  // this is to cache cell data again after it changes so sorting still works
     });
 
 
