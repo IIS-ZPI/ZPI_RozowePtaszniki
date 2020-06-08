@@ -5,6 +5,7 @@ import {noTaxPrice, profit, productFinalPrice, productBasePrice, productLogistic
 
 $(document).ready(function () {
     main();
+
 });
 
 
@@ -22,6 +23,16 @@ function main(){
         productsData = data;
         createTableFromJSON(data);
         calculatePriceForEveryProduct();
+
+        // THIS NEEDS TO BE CALLED ONLY AFTER COLUMNS ARE CREATED WITH createTableFromJSON() function!
+        $('#products-table').DataTable({
+            columnDefs: [{
+                orderable: false,
+                targets: [5, 6]
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+
     });
 
 

@@ -1,9 +1,13 @@
 .final-price{
     color: forestgreen;
     font-weight: bold;
-    font-size: 16px;
+    /*font-size: 16px;*/
 }
 
 .base-price{
 
+}
+
+.btn-in-table{
+    border-radius: 5px;
 }

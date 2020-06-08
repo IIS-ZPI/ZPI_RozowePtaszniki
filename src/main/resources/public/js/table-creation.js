@@ -44,14 +44,14 @@ export function createTableFromJSON(data) {
 }
 
 export function createRemoveButton(id) {
-    let htmlString = `<td id="${productRemove+id}" class="table-remove">`;
-    htmlString += `<button type="button" class="btn btn-rounded btn-danger btn-sm">${productRemove}</button></td>`;
+    let htmlString = `<td id="${productRemove+id}" class="table-remove p-0 py-1">`;
+    htmlString += `<button type="button" class="btn btn-danger btn-sm btn-in-table">${productRemove}</button></td>`;
     return htmlString;
 }
 
 export function createShowPricesButton(id) {
-    let htmlString = `<td id="${productCalculatePrice+id}" class="table-show-prices">`;
-    htmlString += `<button type="button" class="btn btn-rounded btn-default btn-sm" data-toggle="modal" data-target="#show-prices-modal">`;
+    let htmlString = `<td id="${productCalculatePrice+id}" class="table-show-prices p-0 py-1">`;
+    htmlString += `<button type="button" class="btn btn-info btn-sm btn-in-table" data-toggle="modal" data-target="#show-prices-modal">`;
     htmlString += `${productCalculatePrice}</button></td>`;
     return htmlString;
 }
