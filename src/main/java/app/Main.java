@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException, SQLException {
         staticFileLocation("/public");
-//        staticFiles.location("/public");
+        //staticFiles.location("/public");
         ProfitCalculator profitCalculator = new ProfitCalculator();
         port(getHerokuAssignedPort());
 

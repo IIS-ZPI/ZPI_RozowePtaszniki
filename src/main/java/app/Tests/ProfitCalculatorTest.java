@@ -15,7 +15,7 @@ class ProfitCalculatorTest {
         double finalPrice = 10;
         double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
 
-        ProfitData p1 = new ProfitData("Alabama", 10, 5.01);
+        ProfitData p1 = new ProfitData("Alabama", 10, 5.01, 0.17);
 
         assertEquals(p1.getNameOfState(), "Alabama");
         assertEquals(p1.getPriceWithoutTaxes(), finalPriceWithoutTaxes);
@@ -32,7 +32,7 @@ class ProfitCalculatorTest {
         double finalPrice = 50;
         double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
 
-        ProfitData p1 = new ProfitData("California", 50,45.01);
+        ProfitData p1 = new ProfitData("California", 50,45.01, 0.17);
 
         assertEquals(p1.getNameOfState(), "California");
         assertEquals(p1.getPriceWithoutTaxes(), finalPriceWithoutTaxes);
@@ -49,7 +49,7 @@ class ProfitCalculatorTest {
         double finalPrice = 8;
         double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
 
-        ProfitData p1 = new ProfitData("Alabama", 7.69,7.49);
+        ProfitData p1 = new ProfitData("Alabama", 7.69,7.49, 0.04);
 
         assertEquals(p1.getNameOfState(), "Alabama");
         assertEquals(p1.getPriceWithoutTaxes(), finalPriceWithoutTaxes);
@@ -66,7 +66,7 @@ class ProfitCalculatorTest {
         double finalPrice = 10;
         double finalPriceWithoutTaxes = Math.round(finalPrice / (1.0 + baseTax/100.0) * 100.0) / 100.0;
 
-        ProfitData p1 = new ProfitData("Alabama", 10, 5.01);
+        ProfitData p1 = new ProfitData("Alabama", 10, 5.01, 0.04);
 
         assertEquals(p1.getNameOfState(), "Alabama");
         assertEquals(p1.getPriceWithoutTaxes(), finalPriceWithoutTaxes);

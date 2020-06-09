@@ -10,8 +10,9 @@ public class TaxesInState {
     private String nonPrescriptionDrug;
     private String clothing;
     private String intangibles;
+    private double logisticCost;
 
-    public TaxesInState(String name, double baseTax, double maxLocalSurtax, String groceries, String preparedFood, String prescriptionDrug, String nonPrescriptionDrug, String clothing, String intangibles) {
+    public TaxesInState(String name, double baseTax, double maxLocalSurtax, String groceries, String preparedFood, String prescriptionDrug, String nonPrescriptionDrug, String clothing, String intangibles, double logisticCost) {
         this.name = name;
         this.baseTax = baseTax;
         this.maxLocalSurtax = maxLocalSurtax;
@@ -21,6 +22,11 @@ public class TaxesInState {
         this.clothing = clothing;
         this.preparedFood = preparedFood;
         this.intangibles = intangibles;
+        this.logisticCost = logisticCost;
+    }
+
+    public double getLogisticCost() {
+        return logisticCost;
     }
 
     public String getName() {

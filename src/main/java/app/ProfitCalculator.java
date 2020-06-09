@@ -10,8 +10,8 @@ public class ProfitCalculator {
 
     ProfitCalculator() {
         this.taxesInStates = new ArrayList<>();
-        this.taxesInStates.add(new TaxesInState("Alabama",4,13.5,"4","4","0","4","4","4"));
-        this.taxesInStates.add(new TaxesInState("California",7.25,10.5,"0","7.25","0","7.25","7.25","0"));
+        this.taxesInStates.add(new TaxesInState("Alabama",4,13.5,"4","4","0","4","4","4",0.04));
+        this.taxesInStates.add(new TaxesInState("California",7.25,10.5,"0","7.25","0","7.25","7.25","0", 0.17));
     }
 
     public String CalculateForAllStates(String id, String category, String basePrice, String finalPrice){
@@ -46,7 +46,8 @@ public class ProfitCalculator {
             listOfProfits.add(new ProfitData(
                     val.getName(),
                     finalPriceWithoutTaxes,
-                    Math.round((finalPriceWithoutTaxes - basePriceDouble) * 100.0) / 100.0
+                    Math.round((finalPriceWithoutTaxes - basePriceDouble - val.getLogisticCost()) * 100.0) / 100.0,
+                    val.getLogisticCost()
             ));
         }
 

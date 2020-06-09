@@ -4,6 +4,7 @@ public class ProfitData {
     private String nameOfState;
     private double profit;
     private double priceWithoutTaxes;
+    private double logisticCost;
 
     public String getNameOfState() {
         return nameOfState;
@@ -29,10 +30,11 @@ public class ProfitData {
         this.profit = profit;
     }
 
-    public ProfitData(String nameOfState, double priceWithoutTaxes, double profit) {
+    public ProfitData(String nameOfState, double priceWithoutTaxes, double profit, double logisticCost) {
         this.nameOfState = nameOfState;
         this.priceWithoutTaxes = priceWithoutTaxes;
         this.profit = profit;
+        this.logisticCost = logisticCost;
     }
 
     @Override
@@ -40,6 +42,7 @@ public class ProfitData {
         return  '\"' + nameOfState + "\":{" +
                 "\"zysk\":" + profit +
                 ",\"cena bez podatku\":" + priceWithoutTaxes +
+                ",\"koszt logistyczny\":" + logisticCost +
                 "},";
     }
 }
