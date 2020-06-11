@@ -35,7 +35,10 @@ public class CsvReader
 
 
 
-    static ArrayList<Product> readProductsFromFile(String path) throws IOException {
+    static ArrayList<Product> readProductsFromFile(String path) throws  NumberFormatException, NullPointerException, IOException {
+        if (path == null)
+            throw new NullPointerException();
+
         ArrayList <Product> products = new ArrayList<>();
         String row;
 

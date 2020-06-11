@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Database
 {
-    Database(){};
+    public Database(){};
 
-    private static Connection getConnection() throws URISyntaxException, SQLException {
+    public static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
@@ -51,14 +51,21 @@ public class Database
     }
 //
 //    // prototype of adding new products function (right now not in use)
-//    public static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
-//        Connection conn = getConnection();
-//        Statement statement = conn.createStatement();
-//        String query = "INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(" +
-//                pr.getId() + "," +
-//                "'" + pr.getNazwa() + "'," +
-//                pr.getCena() + "," +
-//                "'" + pr.getKategoria() + "');";
-//        statement.executeQuery(query);
-//    }
+    public static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(" +
+               pr.getId() + "," +
+                "'" + pr.getName() + "'," +
+               pr.getPrice() + "," +
+                "'" + pr.getCategory() + "');";
+        statement.executeQuery(query);
+    }
+
+    public void deleteProductById(int id) throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "DELETE from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
+        ResultSet result = statement.executeQuery(query);
+    }
 }

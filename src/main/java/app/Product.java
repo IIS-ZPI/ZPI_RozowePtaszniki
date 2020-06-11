@@ -25,7 +25,7 @@ public class Product
     @SerializedName("cena podstawowa")
     private double price;
 
-    Product(int id, String name, double price, String category)
+    public Product(int id, String name, double price, String category)
     {
         this.id = id;
         this.name = name;
