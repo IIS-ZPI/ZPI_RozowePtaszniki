@@ -49,6 +49,38 @@ public class Database
 
         return products;
     }
+
+    public static ArrayList<TaxesInState> getTaxesFromDB() throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "SELECT * from public.\"Taxes\";";
+        ResultSet result = statement.executeQuery(query);
+        ArrayList<TaxesInState> taxes = new ArrayList<>();
+
+        while(result.next()) {
+            taxes.add(new TaxesInState(result.getString("stateName"),result.getDouble("baseTax"),result.getDouble("maxLocalSurtax"),
+                result.getString("groceries"),result.getString("preparedFood"),result.getString("prescriptionDrug"),
+                    result.getString("nonPrescriptionDrug"),result.getString("clothing"),result.getString("intangibles"),
+                        result.getDouble("commonCosts")));
+        }
+
+        return taxes;
+    }
+
+    public static ArrayList<InterCosts> getInternationalCostsFromDB() throws URISyntaxException, SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String query = "SELECT * from public.\"InternationalTransportationCosts\";";
+        ResultSet result = statement.executeQuery(query);
+        ArrayList<InterCosts> interFees = new ArrayList<>();
+
+        while(result.next()) {
+            interFees.add(new InterCosts(result.getString("stateName"),result.getString("currency"),result.getDouble("transportFee"),
+                    result.getDouble("importTarifCons"),result.getDouble("importTarifOther")));
+        }
+
+        return interFees;
+    }
 //
 //    // prototype of adding new products function (right now not in use)
     public static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
