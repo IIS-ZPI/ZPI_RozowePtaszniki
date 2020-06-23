@@ -12,6 +12,14 @@ public class TaxesInState {
     private String intangibles;
     private double logisticCost;
 
+    public double getBaseTax() {
+        return baseTax;
+    }
+
+    public void setBaseTax(double baseTax) {
+        this.baseTax = baseTax;
+    }
+
     public TaxesInState(String name, double baseTax, double maxLocalSurtax, String groceries, String preparedFood, String prescriptionDrug, String nonPrescriptionDrug, String clothing, String intangibles, double logisticCost) {
         this.name = name;
         this.baseTax = baseTax;

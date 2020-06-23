@@ -32,6 +32,8 @@ public class Database
                     result.getDouble("cena"),result.getString("kategoria")));
         }
 
+        conn.close();
+
         return products;
     }
 
@@ -46,6 +48,8 @@ public class Database
             products.add(new Product(result.getInt("id"),result.getString("nazwa"),
                     result.getDouble("cena"),result.getString("kategoria")));
         }
+
+        conn.close();
 
         return products;
     }
@@ -64,6 +68,8 @@ public class Database
                         result.getDouble("commonCosts")));
         }
 
+        conn.close();
+
         return taxes;
     }
 
@@ -79,6 +85,8 @@ public class Database
                     result.getDouble("importTarifCons"),result.getDouble("importTarifOther")));
         }
 
+        conn.close();
+
         return interFees;
     }
 //
@@ -92,6 +100,8 @@ public class Database
                pr.getPrice() + "," +
                 "'" + pr.getCategory() + "');";
         statement.executeQuery(query);
+
+        conn.close();
     }
 
     public void deleteProductById(int id) throws URISyntaxException, SQLException {
@@ -99,5 +109,7 @@ public class Database
         Statement statement = conn.createStatement();
         String query = "DELETE from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
         ResultSet result = statement.executeQuery(query);
+
+        conn.close();
     }
 }

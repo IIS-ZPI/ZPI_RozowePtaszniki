@@ -42,7 +42,7 @@ public class ProfitCalculator {
                     System.out.println("Category doesn't exist");
                     throw new IllegalArgumentException();
                 }
-                baseTax = Double.parseDouble(taxStr);
+                baseTax = parseTaxValue(taxStr, finalPrice, val.getBaseTax());
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException();
@@ -61,6 +61,23 @@ public class ProfitCalculator {
         String jsonResult = result.getResult();
         System.out.println(jsonResult);
         return jsonResult;
+    }
+
+    private Double parseTaxValue(String input, String finalPrice, Double baseTax) {
+        double result = 0;
+        if(input.substring(0,1).equals("$")) {
+            result = Double.parseDouble(input.substring(1));
+
+            if(result < Double.parseDouble(finalPrice)) {
+                result = baseTax;
+            }
+            else
+                result = 0;
+        }
+        else
+            result = Double.parseDouble(input);
+
+        return result;
     }
 
 }
