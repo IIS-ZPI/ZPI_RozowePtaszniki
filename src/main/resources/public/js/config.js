@@ -17,8 +17,8 @@ export const profit = "zysk";
 // {"id": 0, "cena podstawowa": $15.00, "pożądana cena": $19.99, "cena bez podatku": $17:49, "Alabama": {"zysk": $15.90}, "California": {"zysk": $11.87}
 
 
-// THESE NAMES ARE INDEPENDENT FROM SERVER
-export const productLogisticCosts = "koszty logistyczne";
+// THESE NAMES ARE INDEPENDENT FROM SERVERS
+export const productLogisticCosts = "koszt logistyczny";
 export const productFinalPrice = "pożądana cena";
 export const productCalculatePrice = "pokaż ceny";
 export const productRemove = "usuń";

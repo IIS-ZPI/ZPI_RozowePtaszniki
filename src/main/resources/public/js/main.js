@@ -1,7 +1,7 @@
 import {createTableFromJSON} from "./table-creation.js";
 import {
     noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts,
-    productCategory, productID
+    productCategory, productID, productName
 } from "./config.js";
 
 
@@ -35,7 +35,7 @@ function main() {
             }]
         });
         $('.dataTables_length').addClass('bs-select');
-        
+
         // prevent typing letters
         // loose focus on enter
         $(".final-price").keypress(function(e){
@@ -46,7 +46,6 @@ function main() {
             else {
                 e.preventDefault();
             }
-
         });
     });
 
@@ -110,20 +109,21 @@ function getPricesFromServer(id) {
 function updateModalContent(data) {
     if (data === undefined)
         return;
-
+    
+    let productNameModalCell = document.getElementById("modal-product-name");
+    productNameModalCell.textContent = productsData[data[productID]][productName];
+    
     let basePriceModalCell = document.getElementById("base-price-id");
     let finalPriceModalCell = document.getElementById("final-price-id");
     let stateModalCell = document.getElementById("usa-state-id");
-    // let logisticCostsModalCell = document.getElementById("logistic-costs-id");
     let noTaxPriceModalCell = document.getElementById("no-tax-price-id");
+    let logisticCostsModalCell = document.getElementById("logistic-costs-id");
     let profitModalCell = document.getElementById("profit-id");
 
     let stateName = stateModalCell.options[stateModalCell.selectedIndex].innerText;
     basePriceModalCell.setAttribute("placeholder", data[productBasePrice]);
     finalPriceModalCell.setAttribute("placeholder", data[productFinalPrice]);
     noTaxPriceModalCell.setAttribute("placeholder", data[stateName][noTaxPrice]);
+    logisticCostsModalCell.setAttribute("placeholder", data[stateName][productLogisticCosts]);
     profitModalCell.setAttribute("placeholder", data[stateName][profit]);
-
-    // TODO
-    //logisticCostsModalCell.setAttribute("placeholder", data[productLogisticCosts]);
 }

@@ -46,98 +46,175 @@
 
 
 <!-- Show prices modal -->
-<div class="modal fade" id="show-prices-modal" tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<!--<div class="modal fade" id="show-prices-modal" tabindex="-1" role="dialog"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title">Tu możesz zobaczyć ceny dla różnych stanów</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form>-->
+<!--                    <div class="form-group">-->
+<!--                        &lt;!&ndash; State Dropdown Menu &ndash;&gt;-->
+<!--                        <label for="usa-state-id" class="control-label">Stan (USA)</label>-->
+<!--                        <select class="form-control" id="usa-state-id" title="Choose state...">-->
+<!--                            <option value="AL">Alabama</option>-->
+<!--                            &lt;!&ndash; <option value="AK">Alaska</option>-->
+<!--                             <option value="AZ">Arizona</option>-->
+<!--                             <option value="AR">Arkansas</option>&ndash;&gt;-->
+<!--                            <option value="CA">California</option>-->
+<!--                            &lt;!&ndash;   <option value="CO">Colorado</option>-->
+<!--                               <option value="CT">Connecticut</option>-->
+<!--                               <option value="DE">Delaware</option>-->
+<!--                               <option value="DC">District Of Columbia</option>-->
+<!--                               <option value="FL">Florida</option>-->
+<!--                               <option value="GA">Georgia</option>-->
+<!--                               <option value="HI">Hawaii</option>-->
+<!--                               <option value="ID">Idaho</option>-->
+<!--                               <option value="IL">Illinois</option>-->
+<!--                               <option value="IN">Indiana</option>-->
+<!--                               <option value="IA">Iowa</option>-->
+<!--                               <option value="KS">Kansas</option>-->
+<!--                               <option value="KY">Kentucky</option>-->
+<!--                               <option value="LA">Louisiana</option>-->
+<!--                               <option value="ME">Maine</option>-->
+<!--                               <option value="MD">Maryland</option>-->
+<!--                               <option value="MA">Massachusetts</option>-->
+<!--                               <option value="MI">Michigan</option>-->
+<!--                               <option value="MN">Minnesota</option>-->
+<!--                               <option value="MS">Mississippi</option>-->
+<!--                               <option value="MO">Missouri</option>-->
+<!--                               <option value="MT">Montana</option>-->
+<!--                               <option value="NE">Nebraska</option>-->
+<!--                               <option value="NV">Nevada</option>-->
+<!--                               <option value="NH">New Hampshire</option>-->
+<!--                               <option value="NJ">New Jersey</option>-->
+<!--                               <option value="NM">New Mexico</option>-->
+<!--                               <option value="NY">New York</option>-->
+<!--                               <option value="NC">North Carolina</option>-->
+<!--                               <option value="ND">North Dakota</option>-->
+<!--                               <option value="OH">Ohio</option>-->
+<!--                               <option value="OK">Oklahoma</option>-->
+<!--                               <option value="OR">Oregon</option>-->
+<!--                               <option value="PA">Pennsylvania</option>-->
+<!--                               <option value="RI">Rhode Island</option>-->
+<!--                               <option value="SC">South Carolina</option>-->
+<!--                               <option value="SD">South Dakota</option>-->
+<!--                               <option value="TN">Tennessee</option>-->
+<!--                               <option value="TX">Texas</option>-->
+<!--                               <option value="UT">Utah</option>-->
+<!--                               <option value="VT">Vermont</option>-->
+<!--                               <option value="VA">Virginia</option>-->
+<!--                               <option value="WA">Washington</option>-->
+<!--                               <option value="WV">West Virginia</option>-->
+<!--                               <option value="WI">Wisconsin</option>-->
+<!--                               <option value="WY">Wyoming</option>&ndash;&gt;-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>-->
+<!--                        <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="final-price-id" class="control-label">Preferowana cena końcowa</label>-->
+<!--                        <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="no-tax-price-id" class="control-label">Cena bez podatku</label>-->
+<!--                        <input type="number" class="form-control" id="no-tax-price-id" placeholder="-" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>-->
+<!--                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0" readonly>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="profit-id" class="control-label">Marża sprzedaży (zysk)</label>-->
+<!--                        <input type="number" class="form-control" id="profit-id" placeholder="-" readonly>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!-- Show prices modal -->
+<div class="modal fade" id="show-prices-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg price-modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tu możesz zobaczyć ceny dla różnych stanów</h5>
+                <div>
+                    <h4 class="modal-title font-weight-normal">Ceny USA</h4>
+                    <h5 class="font-weight-normal" id="modal-product-name">Name</h5>
+                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <!-- State Dropdown Menu -->
-                        <label for="usa-state-id" class="control-label">Stan (USA)</label>
-                        <select class="form-control" id="usa-state-id" title="Choose state...">
-                            <option value="AL">Alabama</option>
-                            <!-- <option value="AK">Alaska</option>
-                             <option value="AZ">Arizona</option>
-                             <option value="AR">Arkansas</option>-->
-                            <option value="CA">California</option>
-                            <!--   <option value="CO">Colorado</option>
-                               <option value="CT">Connecticut</option>
-                               <option value="DE">Delaware</option>
-                               <option value="DC">District Of Columbia</option>
-                               <option value="FL">Florida</option>
-                               <option value="GA">Georgia</option>
-                               <option value="HI">Hawaii</option>
-                               <option value="ID">Idaho</option>
-                               <option value="IL">Illinois</option>
-                               <option value="IN">Indiana</option>
-                               <option value="IA">Iowa</option>
-                               <option value="KS">Kansas</option>
-                               <option value="KY">Kentucky</option>
-                               <option value="LA">Louisiana</option>
-                               <option value="ME">Maine</option>
-                               <option value="MD">Maryland</option>
-                               <option value="MA">Massachusetts</option>
-                               <option value="MI">Michigan</option>
-                               <option value="MN">Minnesota</option>
-                               <option value="MS">Mississippi</option>
-                               <option value="MO">Missouri</option>
-                               <option value="MT">Montana</option>
-                               <option value="NE">Nebraska</option>
-                               <option value="NV">Nevada</option>
-                               <option value="NH">New Hampshire</option>
-                               <option value="NJ">New Jersey</option>
-                               <option value="NM">New Mexico</option>
-                               <option value="NY">New York</option>
-                               <option value="NC">North Carolina</option>
-                               <option value="ND">North Dakota</option>
-                               <option value="OH">Ohio</option>
-                               <option value="OK">Oklahoma</option>
-                               <option value="OR">Oregon</option>
-                               <option value="PA">Pennsylvania</option>
-                               <option value="RI">Rhode Island</option>
-                               <option value="SC">South Carolina</option>
-                               <option value="SD">South Dakota</option>
-                               <option value="TN">Tennessee</option>
-                               <option value="TX">Texas</option>
-                               <option value="UT">Utah</option>
-                               <option value="VT">Vermont</option>
-                               <option value="VA">Virginia</option>
-                               <option value="WA">Washington</option>
-                               <option value="WV">West Virginia</option>
-                               <option value="WI">Wisconsin</option>
-                               <option value="WY">Wyoming</option>-->
-                        </select>
+                <div class="container">
+                    <div class="row my-3">
+                        <div class="col font-price-table align-self-center">Stan USA</div>
+                        <div class="col">
+                            <!-- State Dropdown Menu -->
+                            <div class="float-right w-100">
+                                <select class="form-control state-dropdown" id="usa-state-id" title="Choose state...">
+                                    <option value="AL">Alabama</option>
+<!--                                    <option value="AK">Alaska</option>-->
+<!--                                    <option value="AZ">Arizona</option>-->
+<!--                                    <option value="AR">Arkansas</option>-->
+                                    <option value="CA">California</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="base-price-id" class="control-label">Cena wejściowa (hurtowa netto)</label>
-                        <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>
+                    <div class="row my-3">
+                        <div class="col font-price-table">Cena podstawowa ($)</div>
+                        <div class="col font-price-table">
+                            <div class="float-right w-100">
+                                <input type="number" class="form-control" id="base-price-id" placeholder="0" readonly>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="final-price-id" class="control-label">Preferowana cena końcowa</label>
-                        <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>
+                    <div class="row my-3">
+                        <div class="col font-price-table">Cena końcowa ($)</div>
+                        <div class="col font-price-table">
+                            <div class="float-right w-100">
+                                <input type="number" class="form-control" id="final-price-id" placeholder="0" readonly>
+                            </div>
+                        </div>
                     </div>
-                    <!--                    <div class="form-group">-->
-                    <!--                        <label for="logistic-costs-id" class="control-label">Koszty logistyczne</label>-->
-                    <!--                        <input type="number" class="form-control" id="logistic-costs-id" placeholder="0$" readonly>-->
-                    <!--                    </div>-->
-                    <div class="form-group">
-                        <label for="no-tax-price-id" class="control-label">Cena bez podatku</label>
-                        <input type="number" class="form-control" id="no-tax-price-id" placeholder="-" readonly>
+                    <div class="row my-3">
+                        <div class="col font-price-table">Cena bez podatku ($)</div>
+                        <div class="col font-price-table">
+                            <div class="float-right w-100">
+                                <input type="number" class="form-control" id="no-tax-price-id" placeholder="-" readonly>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="profit-id" class="control-label">Marża sprzedaży (zysk)</label>
-                        <input type="number" class="form-control" id="profit-id" placeholder="-" readonly>
+                    <div class="row my-3">
+                        <div class="col font-price-table">Koszty logistyczne ($)</div>
+                        <div class="col font-price-table">
+                            <div class="float-right w-100">
+                                <input type="number" class="form-control" id="logistic-costs-id" placeholder="0" readonly>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
+                    <div class="row my-3">
+                        <div class="col font-price-table">Zysk ($)</div>
+                        <div class="col font-price-table">
+                            <div class="float-right w-100">
+                                <input type="number" class="form-control" id="profit-id" placeholder="-" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
