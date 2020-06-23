@@ -9,7 +9,7 @@ public class CsvReader
 {
     private ArrayList<Product> products;
 
-    CsvReader()
+    public CsvReader()
     {
         //Load products from csv file to products ArrayList
         System.out.println("Products from csv file: ");
@@ -35,7 +35,7 @@ public class CsvReader
 
 
 
-    static ArrayList<Product> readProductsFromFile(String path) throws  NumberFormatException, NullPointerException, IOException {
+    public static ArrayList<Product> readProductsFromFile(String path) throws  NumberFormatException, NullPointerException, IOException {
         if (path == null)
             throw new NullPointerException();
 
