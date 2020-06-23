@@ -12,13 +12,13 @@ export function createTableFromJSON(data) {
     // CREATE COLUMNS
     let columnsBody = document.getElementById('columnsBody');
     let htmlString = `<tr>`;
-    htmlString += `<th class="text-center">${productID}</th>`;
-    htmlString += `<th class="text-center">${productName}</th>`;
-    htmlString += `<th class="text-center">${productCategory}</th>`;
-    htmlString += `<th class="text-center">${productBasePrice}</th>`;
-    htmlString += `<th class="text-center">${productFinalPrice}</th>`;
-    htmlString += `<th class="text-center">${productCalculatePrice}</th>`;
-    htmlString += `<th class="text-center">${productRemove}</th>`;
+    htmlString += `<th class="text-center">Id</th>`;
+    htmlString += `<th class="text-center">Nazwa</th>`;
+    htmlString += `<th class="text-center">Kategoria</th>`;
+    htmlString += `<th class="text-center">Cena podstawowa</th>`;
+    htmlString += `<th class="text-center">Cena końcowa</th>`;
+    htmlString += `<th class="text-center"></th>`;
+    htmlString += `<th class="text-center"></th>`;
     htmlString += `</tr>`;
     columnsBody.innerHTML = htmlString;
 
@@ -42,13 +42,13 @@ export function createTableFromJSON(data) {
 
 export function createRemoveButton(id) {
     let htmlString = `<td id="${productRemove+id}" class="table-remove p-0 py-1">`;
-    htmlString += `<button type="button" class="btn btn-danger btn-sm btn-in-table">${productRemove}</button></td>`;
+    htmlString += `<button type="button" class="btn btn-sm btn-danger waves-effect btn-in-table">${productRemove}</button></td>`;
     return htmlString;
 }
 
 export function createShowPricesButton(id) {
     let htmlString = `<td id="${productCalculatePrice+id}" class="table-show-prices p-0 py-1">`;
-    htmlString += `<button type="button" class="btn btn-info btn-sm btn-in-table" data-toggle="modal" data-target="#show-prices-modal">`;
+    htmlString += `<button type="button" class="btn btn-sm btn-dark-green waves-effect btn-in-table" data-toggle="modal" data-target="#show-prices-modal">`;
     htmlString += `${productCalculatePrice}</button></td>`;
     return htmlString;
 }

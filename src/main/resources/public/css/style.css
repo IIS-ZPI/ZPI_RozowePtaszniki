@@ -1,13 +1,28 @@
-.final-price{
+.final-price {
     color: forestgreen;
     font-weight: bold;
     /*font-size: 16px;*/
 }
 
-.base-price{
+.base-price {
 
 }
 
-.btn-in-table{
+.btn-in-table {
     border-radius: 5px;
+}
+
+.price-modal {
+    /*border-radius: 15px;*/
+    max-width: 750px;
+}
+
+.font-price-table {
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.state-dropdown {
+    font-weight: normal;
+    font-size: 16px;
 }

@@ -1,7 +1,7 @@
 import {createTableFromJSON} from "./table-creation.js";
 import {
     noTaxPrice, profit, productFinalPrice, productBasePrice, productLogisticCosts,
-    productCategory, productID
+    productCategory, productID, productName
 } from "./config.js";
 
 
@@ -109,7 +109,10 @@ function getPricesFromServer(id) {
 function updateModalContent(data) {
     if (data === undefined)
         return;
-
+    
+    let productNameModalCell = document.getElementById("modal-product-name");
+    productNameModalCell.textContent = productsData[data[productID]][productName];
+    
     let basePriceModalCell = document.getElementById("base-price-id");
     let finalPriceModalCell = document.getElementById("final-price-id");
     let stateModalCell = document.getElementById("usa-state-id");
