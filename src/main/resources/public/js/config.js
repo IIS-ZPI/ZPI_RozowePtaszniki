@@ -20,5 +20,6 @@ export const profit = "zysk";
 // THESE NAMES ARE INDEPENDENT FROM SERVERS
 export const productLogisticCosts = "koszt logistyczny";
 export const productFinalPrice = "pożądana cena";
-export const productCalculatePrice = "pokaż ceny";
+export const productShowPriceUSA = "pokaż ceny USA";
+export const productShowPriceInternational = "pokaż ceny międzynarodowe";
 export const productRemove = "usuń";

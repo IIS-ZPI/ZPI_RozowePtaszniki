@@ -31,7 +31,7 @@ function main() {
         dataTable = $('#products-table').DataTable({
             columnDefs: [{
                 orderable: false,
-                targets: [5, 6] // remove sorting buttons on those columns
+                targets: [5, 6, 7] // remove sorting buttons on those columns
             }]
         });
         $('.dataTables_length').addClass('bs-select');
@@ -111,8 +111,10 @@ function updateModalContent(data) {
         return;
     
     let productNameModalCell = document.getElementById("modal-product-name");
+    let productNameModalCell2 = document.getElementById("international-prices-modal-product-name");
     productNameModalCell.textContent = productsData[data[productID]][productName];
-    
+    productNameModalCell2.textContent = productsData[data[productID]][productName];
+
     let basePriceModalCell = document.getElementById("base-price-id");
     let finalPriceModalCell = document.getElementById("final-price-id");
     let stateModalCell = document.getElementById("usa-state-id");
