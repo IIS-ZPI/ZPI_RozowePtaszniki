@@ -7,13 +7,19 @@ import java.util.ArrayList;
 
 public class ProfitCalculator {
 
-    private static ArrayList<TaxesInState> taxesInStates;
+    private ArrayList<TaxesInState> taxesInStates;
 
-    ProfitCalculator() {}
+    ProfitCalculator() {
+        try {
+            taxesInStates = Database.getTaxesFromDB();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public static String CalculateForAllStates(String id, String category, String basePrice, String finalPrice) throws URISyntaxException, SQLException {
-
-        taxesInStates = Database.getTaxesFromDB();
+    public String CalculateForAllStates(String id, String category, String basePrice, String finalPrice) {
 
         System.out.println(id);
         System.out.println(category);

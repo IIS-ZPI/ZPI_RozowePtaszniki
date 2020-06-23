@@ -18,16 +18,18 @@ import static spark.Spark.*;
 
 public class Main {
 
+
     public static void main(String[] args) throws URISyntaxException, SQLException {
         staticFileLocation("/public");
         //staticFiles.location("/public");
+        ProfitCalculator profitCalculator = new ProfitCalculator();
         port(getHerokuAssignedPort());
 
         get(Paths.Web.START_PAGE, (req, res) -> renderContent(Paths.Template.INDEX));
 
         get(Paths.Web.PRODUCTS, (req, res) -> getProductsJsonString());
 
-        get(Paths.Web.CALCULATE, (req, res) -> ProfitCalculator.CalculateForAllStates(
+        get(Paths.Web.CALCULATE, (req, res) -> profitCalculator.CalculateForAllStates(
                 req.params(":productID"),
                 req.params(":category"),
                 req.params(":basePrice"),
