@@ -1,20 +1,20 @@
 package app;
 import app.util.CalculatorResult;
-import com.google.gson.JsonObject;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProfitCalculator {
 
-    private ArrayList<TaxesInState> taxesInStates;
+    private static ArrayList<TaxesInState> taxesInStates;
 
-    ProfitCalculator() {
-        this.taxesInStates = new ArrayList<>();
-        this.taxesInStates.add(new TaxesInState("Alabama",4,13.5,"4","4","0","4","4","4",0.04));
-        this.taxesInStates.add(new TaxesInState("California",7.25,10.5,"0","7.25","0","7.25","7.25","0", 0.17));
-    }
+    ProfitCalculator() {}
 
-    public String CalculateForAllStates(String id, String category, String basePrice, String finalPrice){
+    public static String CalculateForAllStates(String id, String category, String basePrice, String finalPrice) throws URISyntaxException, SQLException {
+
+        taxesInStates = Database.getTaxesFromDB();
+
         System.out.println(id);
         System.out.println(category);
         System.out.println(basePrice);
@@ -28,7 +28,7 @@ public class ProfitCalculator {
         double finalPriceDouble = Double.parseDouble(finalPrice);
 
         ArrayList<ProfitData> listOfProfits = new ArrayList<>();
-        for (TaxesInState val : this.taxesInStates) {
+        for (TaxesInState val : taxesInStates) {
             double baseTax;
             try {
                 String taxStr = val.getTaxForCategory(category);
