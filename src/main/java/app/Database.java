@@ -21,10 +21,16 @@ public class Database
 
     public static ArrayList<Product> getProductById(int id) throws URISyntaxException, SQLException {
         Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        String query = "SELECT * from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
-        ResultSet result = statement.executeQuery(query);
+        //Statement statement = conn.createStatement();
+        //String query = "SELECT * from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
+        //ResultSet result = statement.executeQuery(query);
         ArrayList<Product> products = new ArrayList<>();
+
+        PreparedStatement statement = conn.prepareStatement("SELECT * from public.\"Produkty\" WHERE id= ?");
+
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
 
         while(result.next())
         {
@@ -93,23 +99,36 @@ public class Database
 //    // prototype of adding new products function (right now not in use)
     public static void putProductIntoDB(Product pr) throws URISyntaxException, SQLException {
         Connection conn = getConnection();
-        Statement statement = conn.createStatement();
+        /*Statement statement = conn.createStatement();
         String query = "INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(" +
                pr.getId() + "," +
                 "'" + pr.getName() + "'," +
                pr.getPrice() + "," +
                 "'" + pr.getCategory() + "');";
-        statement.executeQuery(query);
+        statement.executeQuery(query);*/
+        PreparedStatement statement = conn.prepareStatement("INSERT INTO public.\"Produkty\" ('id','nazwa', 'cena','kategoria') VALUES(?,?,?,?)");
 
+        statement.setInt(1, pr.getId());
+        statement.setString(2, pr.getName());
+        statement.setDouble(3, pr.getPrice());
+        statement.setString(4, pr.getCategory());
+
+
+        ResultSet result = statement.executeQuery();
         conn.close();
     }
 
     public void deleteProductById(int id) throws URISyntaxException, SQLException {
         Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        String query = "DELETE from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
-        ResultSet result = statement.executeQuery(query);
+        //Statement statement = conn.createStatement();
+        //String query = "DELETE from public.\"Produkty\" WHERE id=" + String.valueOf(id) + ";";
+        //ResultSet result = statement.executeQuery(query);
 
+        PreparedStatement statement = conn.prepareStatement("DELETE from public.\"Produkty\" WHERE id = ?");
+
+        statement.setInt(1, id);
+
+        ResultSet result = statement.executeQuery();
         conn.close();
     }
 }
